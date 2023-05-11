@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SamsWarehouse.Models;
+using SamsWarehouse.Models.Data;
 using System.Diagnostics;
 
 namespace SamsWarehouse.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ProductController> _logger;
+        private readonly SQLDBContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ProductController(ILogger<ProductController> logger, SQLDBContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            
+            return View(await _dbContext.Products.ToListAsync());
         }
 
         public IActionResult Privacy()
