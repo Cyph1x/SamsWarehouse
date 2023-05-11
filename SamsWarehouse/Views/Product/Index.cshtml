@@ -3,7 +3,28 @@
     ViewData["Title"] = "Product Page";
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<h1>Products</h1>
+</div>
+
+<div class="card-container">
+	@foreach (var product in Model)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+
+
+			<div class="card shadow rounded-3 border border-primary" style="width:20rem;padding:1rem;margin:1rem;">
+
+				<img class="card-img-top rounded-1 border border-primary shadow" src="@Url.Content("~/images/" + product.Id + ".webp")">
+				<div class="text-center" style="padding:inherit">
+					<h2 class="card-text">@product.Title</h2>
+					<h3 class ="card-text">$@product.Price</h3>
+				</div>
+			</div>
+		}
+	}
+
+
 </div>
