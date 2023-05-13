@@ -15,11 +15,11 @@
         
             
                 <div class="col mb-5">
-                    <div class="card h-100">
+                    <div class="card h-100 shadow">
                         <!-- Product image-->
-                    <img class="card-img-top" src="@Url.Content("~/images/thumbnail/" + product.Id +"/"+ product.Id +"_1.webp")">
+                    <img style="padding: 10px;" class="card-img-top bg-primary" src="@Url.Content("~/images/thumbnail/" + product.Id +"/"+ product.Id +"_1.webp")">
                         <!-- Product details-->
-                        <div class="card-body p-4">
+                        <div class="card-body p-2 pt-2 bg-body-secondary">
                             <div class="text-center">
                                 <!-- Product name-->
                                 <h5 class="fw-bolder">@product.Title</h5>
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="card-footer p-2 pt-2 border-top-0">
                         <div class="text-center"><a class="btn btn-outline-secondary mt-auto" href="#">Add To Cart</a></div>
                         </div>
                     </div>
