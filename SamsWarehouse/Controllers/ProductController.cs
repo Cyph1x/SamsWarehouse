@@ -22,6 +22,21 @@ namespace SamsWarehouse.Controllers
             
             return View(await _dbContext.Products.ToListAsync());
         }
+        public async Task<IActionResult> DetailsAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _dbContext.Products.FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
 
         public IActionResult Privacy()
         {
