@@ -113,3 +113,16 @@ body {
         text-align: center;
     }
 }
+@keyframes logo {
+    100% {
+        fill: transparent;
+    }
+}
+
+.logo {
+    animation-name: logo;
+    animation-duration: 2s;
+    animation-direction: reverse;
+}
+
+

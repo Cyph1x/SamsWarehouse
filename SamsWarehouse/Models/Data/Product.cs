@@ -6,8 +6,9 @@
         public string Title { get; set; }
         public double Price { get; set; }
         public string Size { get; set; }
-        public string Details { get; set; }
-        public string Ingredients { get; set; }
+        public string? Details { get; set; }
+        public string? Ingredients { get; set; }
+        public int images { get; set; }
         public ICollection<CartItem> CartItems { get; set;}
     }
 }
