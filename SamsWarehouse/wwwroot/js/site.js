@@ -136,6 +136,8 @@ const updateCart = () => {
         cartxhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 cart.innerHTML = this.responseText;
+                var price = document.getElementById("total").innerHTML;
+                document.getElementById("price").innerHTML = price;
             }
         };
     cartxhr.open("GET", "/Cart/CartModal", true);
@@ -154,9 +156,53 @@ function addToCart(id, quantity) {
     addToCartxhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+
         }
     };
-    addToCartxhr.open("PUT", "/Cart/Items", true);
+    addToCartxhr.open("POST", "/Cart/Items", true);
     addToCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    addToCartxhr.send(JSON.stringify({"ProductId":id,"Quantity":quantity}));
+    addToCartxhr.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
+}
+
+var deleteFromCartxhr = null;
+//add product to cart
+function removeFromCart(id) {
+    if (deleteFromCartxhr !== null) {
+        deleteFromCartxhr.abort();
+        deleteFromCartxhr = null;
+    }
+    deleteFromCartxhr = new XMLHttpRequest();
+    deleteFromCartxhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+
+        }
+    };
+    deleteFromCartxhr.open("DELETE", "/Cart/Items/"+id, true);
+    deleteFromCartxhr.send();
+}
+
+var setQuantityCartxhr = null;
+//add product to cart
+function setQuantityCart(id, quantity) {
+    if (setQuantityCartxhr !== null) {
+        setQuantityCartxhr.abort();
+        setQuantityCartxhr = null;
+    }
+    setQuantityCartxhr = new XMLHttpRequest();
+    setQuantityCartxhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+
+        }
+    };
+    setQuantityCartxhr.open("PUT", "/Cart/Items", true);
+    setQuantityCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    setQuantityCartxhr.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
 }

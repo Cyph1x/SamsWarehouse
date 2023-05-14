@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using SamsWarehouse.Models.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SQLDBContext>(options =>
@@ -12,7 +16,7 @@ builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
-
+app.UseResponseCompression();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -22,7 +26,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        // Cache static content (images) for one year
+        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=31536000";
+    }
+});
 app.UseSession();
 app.UseRouting();
 

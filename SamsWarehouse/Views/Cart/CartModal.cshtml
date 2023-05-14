@@ -1,16 +1,26 @@
 ﻿@model Cart
-
-<img src="~/Logo.svg" height="25" width="25">Cart</img>
+@{var total = "$0.00";
+var title = "Cart";}
 @if (!(Model == null || Model.CartItems == null || Model.CartItems.Count == 0))
 {
-    <span class="badge ms-1 bg-secondary rounded-pill">@Model.total.ToString("c2")</span>
-}
-else
-{
-    <span class="badge ms-1 bg-secondary rounded-pill">$0.00</span>
-}
+    total = Model.total.ToString("c2");
+    title = Model.Name;
 
-<ul class="dropdown-menu dropdown-menu-end overflow-auto" style="max-height:40vh">
+
+}
+<div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">@title</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+
+<label>
+    <tr>
+        <b>Total:</b>
+            <span class="badge ms-1 bg-secondary rounded-pill" id="total">@total</span>
+    </tr>
+</label>
+
 @if(Model==null ||Model.CartItems ==null || Model.CartItems.Count == 0)
 {
 
@@ -24,8 +34,11 @@ else
 
 @foreach (var product in Model.CartItems)
 {
-    <li>
-<div class="row">
+            
+
+
+        <hr />
+        <div class="row">
             <div class="col-3">
                 <img src="@Url.Content("~/images/thumbnail/" + product.Product.Id +"/"+ product.Product.Id +"_1.webp")" alt="..." class="img-thumbnail">
             </div>
@@ -38,13 +51,17 @@ else
                         <h6>@product.Product.Price.ToString("c2")</h6>
                     </div>
                     <div class="col-12">
-                        <h6>Quantity: @product.Quantity</h6>
+                            <div class="d-flex align-items-center">
+                                <input id="form1" min="0" name="quantity" value="@product.Quantity" type="number" class="form-control form-control-sm" onchange="setQuantityCart(@product.ProductId,this.value)">
+                                <img type="button" src="/delete.svg" style="width:25px;height:25px;" onclick="removeFromCart(@product.ProductId)"></img>
+                            </div>
                     </div>
                 </div>
             </div>
+            
         </div>
-    </li>
+    
 }   
     
 }
-</ul>
+</div>

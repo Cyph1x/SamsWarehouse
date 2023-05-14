@@ -26,9 +26,9 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
                         </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Privacy">Privacy</a>
-                        </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+                        </li>
                     </ul>
                     <div class="flex-grow-1 dropdown-center ">
 
@@ -42,11 +42,14 @@
                     @if (Context.Session.GetInt32("ID") != null)
                     {
                         //logged in
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="cartContents">
+
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <img src="~/Logo.svg" height="25" width="25">Cart
+                            <span class="badge ms-1 bg-secondary rounded-pill" id="price"></span>
+
                             </button>
-                        </div>
-                    <a class="btn btn-outline-secondary mt-auto mx-1" asp-area="" asp-controller="Auth" asp-action="logout">
+                        
+                    <a class="btn btn-outline-secondary mx-1" asp-area="" asp-controller="Auth" asp-action="logout">
                             <img src="~/images/user.svg" height="25" width="25">Logout
                         </a>
                     }
@@ -63,8 +66,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="">
         <main role="main" class="pb-3">
+            <div class="offcanvas offcanvas-end overflow-auto" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div id="cartContents">
+                
+                </div>
+            </div>
             @RenderBody()
         </main>
     </div>

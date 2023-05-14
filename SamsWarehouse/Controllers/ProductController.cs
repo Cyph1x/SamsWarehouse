@@ -16,7 +16,7 @@ namespace SamsWarehouse.Controllers
             _logger = logger;
             _dbContext = dbContext;
         }
-
+        
         public async Task<IActionResult> IndexAsync()
         {
             
