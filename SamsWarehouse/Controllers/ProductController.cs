@@ -37,6 +37,11 @@ namespace SamsWarehouse.Controllers
 
             return View(product);
         }
+        public async Task<IActionResult> SearchAsync([FromQuery] string q)
+        {
+            var products = await _dbContext.Products.Where(p => p.Title.Contains(q)).ToListAsync();
+            return PartialView(products);
+        }
 
         public IActionResult Privacy()
         {

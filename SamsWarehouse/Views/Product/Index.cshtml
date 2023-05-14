@@ -28,15 +28,19 @@
                                 <h5 class="fw-bolder">@product.Title</h5>
                             </a>
                             <!-- Product price -->
-                            $@product.Price
+                            @product.Price.ToString("c2")
                         </div>
                     </div>
                     <!-- Product actions -->
-                    <div class="card-footer p-2 pt-2 border-top-0">
-                        <div class="text-center">
-                            <a class="btn btn-primary mt-auto" href="#">Add To Cart</a>
+                    @if (Context.Session.GetInt32("ID") != null)
+                    {
+                        <div class="card-footer p-2 pt-2 border-top-0">
+                            <div class="text-center">
+                                <a class="btn btn-primary mt-auto" onClick="addToCart(@product.Id,1)">Add To Cart</a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    
                 </div>
             </div>
 

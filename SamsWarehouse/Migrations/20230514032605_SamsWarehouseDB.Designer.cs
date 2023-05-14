@@ -12,7 +12,7 @@ using SamsWarehouse.Models.Data;
 namespace SamsWarehouse.Migrations
 {
     [DbContext(typeof(SQLDBContext))]
-    [Migration("20230513152019_SamsWarehouseDB")]
+    [Migration("20230514032605_SamsWarehouseDB")]
     partial class SamsWarehouseDB
     {
         /// <inheritdoc />
@@ -36,6 +36,9 @@ namespace SamsWarehouse.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SelectedCart")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -83,6 +86,9 @@ namespace SamsWarehouse.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -1,0 +1,96 @@
+﻿@model SamsWarehouse.Models.Data.LoginDTO;
+@{
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/scss/custom.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SamsWarehouse.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-primary" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+
+                            <div class="m-5">
+
+                                <img src="~/Logo.svg" height="100" width="100">Sam's Warehouse</img>
+                                
+                                <form asp-action="login" id"fields">
+                                    @*<label id="result" class="control-label"></label>*@
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group" style=" width:100%">
+                                        
+                                        <label asp-for="Username" class="control-label"></label>
+                                        <input style="width:100%" asp-for="Username" class="form-control" placeholder="johndoe@example.com" type="email" />
+                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group" style="width:100%">
+                                        <label asp-for="Password" class="control-label"></label>
+                                        <input style="width:100%" asp-for="Password" class="form-control" placeholder="Password123" type="password"/>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </form>
+                                <button onClick="login()" class="btn btn-primary mt-3" style="width:100%" />Login</button>
+                            </div>
+                            <hr />
+                            <div class="mx-5">
+                                <p class="text-center">
+                                    <b>Don't have an account?</b>
+                                </p>
+                                <a class="btn btn-outline-secondary" style="width:100%" asp-area="" asp-controller="Auth" asp-action="signup">Signup</a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        var xhr = null;
+
+        async function login() {
+            var username = document.getElementById("Username").value;
+            var password = document.getElementById("Password").value;
+            //var result = document.getElementById("result");
+            var form = new FormData();
+            form.append("Username", username);
+            form.append("Password", password);
+
+            try {
+                const response = await fetch("/Auth/login", {
+                    method: "POST",
+                    body: form,
+                });
+
+                if (response.ok) {
+window.location.href = "/";
+                    //const responseText = await response.text();
+                    //console.log(responseText);
+                    // Handle the successful response here
+                    //result.innerHTML = responseText;
+                } else {
+                    alert("Invalid Login")
+                    //result.innerHTML = '<b class="text-danger">Invalid Login<b>';
+                }
+            } catch (error) {
+            }
+        }
+        
+
+    </script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>

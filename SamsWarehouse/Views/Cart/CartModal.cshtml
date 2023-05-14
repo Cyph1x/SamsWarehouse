@@ -1,0 +1,50 @@
+﻿@model Cart
+
+<img src="~/Logo.svg" height="25" width="25">Cart</img>
+@if (!(Model == null || Model.CartItems == null || Model.CartItems.Count == 0))
+{
+    <span class="badge ms-1 bg-secondary rounded-pill">@Model.total.ToString("c2")</span>
+}
+else
+{
+    <span class="badge ms-1 bg-secondary rounded-pill">$0.00</span>
+}
+
+<ul class="dropdown-menu dropdown-menu-end overflow-auto" style="max-height:40vh">
+@if(Model==null ||Model.CartItems ==null || Model.CartItems.Count == 0)
+{
+
+    <p>Cart is empty</p>
+}
+else
+{
+   
+
+
+
+@foreach (var product in Model.CartItems)
+{
+    <li>
+<div class="row">
+            <div class="col-3">
+                <img src="@Url.Content("~/images/thumbnail/" + product.Product.Id +"/"+ product.Product.Id +"_1.webp")" alt="..." class="img-thumbnail">
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-12">
+                        <h6>@product.Product.Title</h6>
+                    </div>
+                    <div class="col-12">
+                        <h6>@product.Product.Price.ToString("c2")</h6>
+                    </div>
+                    <div class="col-12">
+                        <h6>Quantity: @product.Quantity</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+}   
+    
+}
+</ul>

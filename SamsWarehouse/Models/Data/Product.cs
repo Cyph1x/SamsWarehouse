@@ -1,7 +1,10 @@
-﻿namespace SamsWarehouse.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SamsWarehouse.Models
 {
     public class Product
     {
+        [Editable(false)]
         public int Id { get; set; }
         public string Title { get; set; }
         public double Price { get; set; }
