@@ -132,18 +132,39 @@ const updateCart = () => {
         cartxhr.abort();
         cartxhr = null;
     }
-        cartxhr = new XMLHttpRequest();
-        cartxhr.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                cart.innerHTML = this.responseText;
-                var price = document.getElementById("total").innerHTML;
-                document.getElementById("price").innerHTML = price;
-            }
-        };
+    cartxhr = new XMLHttpRequest();
+    cartxhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+        }
+    };
     cartxhr.open("GET", "/Cart/CartModal", true);
-        cartxhr.send();
-    
+    cartxhr.send();
+
 };
+
+var switchCartxhr = null;
+
+function switchCart(id){
+    if (switchCartxhr !== null) {
+        switchCartxhr.abort();
+        switchCartxhr = null;
+    }
+    switchCartxhr = new XMLHttpRequest();
+    switchCartxhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+        }
+    };
+    switchCartxhr.open("GET", "/Cart/"+id, true);
+    switchCartxhr.send();
+
+};
+
 updateCart();
 var addToCartxhr = null;
 //add product to cart
@@ -205,4 +226,44 @@ function setQuantityCart(id, quantity) {
     setQuantityCartxhr.open("PUT", "/Cart/Items", true);
     setQuantityCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     setQuantityCartxhr.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
+}
+
+var createCartxhr = null;
+//add product to cart
+function createCart(name) {
+    if (createCartxhr !== null) {
+        createCartxhr.abort();
+        createCartxhr = null;
+    }
+   createCartxhr = new XMLHttpRequest();
+    createCartxhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+
+        }
+    };
+    createCartxhr.open("POST", "/Cart", true);
+    createCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    createCartxhr.send(JSON.stringify({ "Name": name}));
+}
+var deleteCartxhr = null;
+//add product to cart
+function removeCart(id) {
+    if (deleteCartxhr !== null) {
+        deleteCartxhr.abort();
+        deleteCartxhr = null;
+    }
+    deleteCartxhr = new XMLHttpRequest();
+    deleteCartxhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            cart.innerHTML = this.responseText;
+            var price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+
+        }
+    };
+    deleteCartxhr.open("DELETE", "/Cart/" + id, true);
+    deleteCartxhr.send();
 }

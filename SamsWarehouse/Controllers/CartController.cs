@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -34,24 +35,78 @@ namespace SamsWarehouse.Controllers
         }
 
 
-        // GET: CartModal
-        public async Task<IActionResult> CartModalAsync()
+        
+        // GET: CartModal/{id}
+        [HttpGet("Cart/{id}")]
+        public async Task<IActionResult> CartModalAsync([FromRoute] int? id)
+        {
+            if (id == null)
+            {
+                id = HttpContext?.Session?.GetInt32("ID");
+                if (!id.HasValue)
+                {
+                    return Unauthorized();
+                }
+
+                var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
+
+                var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();
+                var cart = carts.FirstOrDefault(c => c.UserId == id && c.Id == user.SelectedCart);
+                var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
+                carts.Remove(cart);
+                carts.Insert(0, cart);
+                return PartialView(carts);
+            }
+            else
+            {
+                int? userId = HttpContext?.Session?.GetInt32("ID");
+                if (!userId.HasValue)
+                {
+                    return Unauthorized();
+                }
+
+                var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == userId);
+                var carts = await _context.Carts.Where(c => c.UserId == userId).ToListAsync();
+                var cart = carts.FirstOrDefault(c => c.UserId == userId && c.Id == id);
+                if (cart == null)
+                {
+                    cart = carts.FirstOrDefault(c => c.UserId == id);
+                }
+                user.SelectedCart = cart.Id;
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
+                carts.Remove(cart);
+                carts.Insert(0, cart);
+                return PartialView(carts);
+            }
+
+        }
+        // Post Cart
+        [HttpPost]
+        public async Task<IActionResult> Index([FromBody] Cart cart)
         {
             int? id = HttpContext?.Session?.GetInt32("ID");
             if (!id.HasValue)
             {
                 return Unauthorized();
             }
-            
             var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
-            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == id && c.Id == user.SelectedCart);
-            var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
-
-            return PartialView(cart);
-
-
+            var newCart = new Cart
+            {
+                UserId = user.Id,
+                Name = cart.Name
+            };
+            _context.Add(newCart);
+            await _context.SaveChangesAsync();
+            user.SelectedCart = newCart.Id;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            var carts = await _context.Carts.Where(c => c.UserId == id).ToListAsync();
+            carts.Remove(newCart);
+            carts.Insert(0, newCart);
+            return PartialView("CartModal", carts);
         }
-
         // POST Cart/Items
         [HttpPost]
         [HttpPut]
@@ -106,7 +161,10 @@ namespace SamsWarehouse.Controllers
             await _context.SaveChangesAsync();
             var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == id && c.Id == user.SelectedCart);
             var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
-            return PartialView("CartModal",cart);
+            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();
+            carts.Remove(cart);
+            carts.Insert(0, cart);
+            return PartialView("CartModal",carts);
         }
         [HttpDelete]
         public async Task<IActionResult> Items([FromRoute] int id)
@@ -130,10 +188,41 @@ namespace SamsWarehouse.Controllers
             await _context.SaveChangesAsync();
             var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Id == user.SelectedCart);
             var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
-            return PartialView("CartModal", cart);
+            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();
+            carts.Remove(cart);
+            carts.Insert(0, cart);
+            return PartialView("CartModal", carts);
+        }
+        // DELETE: Cart/{id}
+        [HttpDelete("Cart/{id}")]
+        public async Task<IActionResult> deleteCart([FromRoute] int id)
+        {
+            int? userId = HttpContext?.Session?.GetInt32("ID");
+            if (!userId.HasValue)
+            {
+                return Unauthorized();
+            }
+
+            //get the current user
+            var user = _context.Users.FirstOrDefault(c => c.Id == userId);
+
+            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Id == id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
+            var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
+            cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Id == user.SelectedCart);
+            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == userId).ToListAsync();
+            carts.Remove(cart);
+            carts.Insert(0, cart);
+            return PartialView("CartModal", carts);
         }
 
         
+
 
         private bool CartExists(int id)
         {

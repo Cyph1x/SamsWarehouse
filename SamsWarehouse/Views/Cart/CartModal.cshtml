@@ -1,38 +1,78 @@
-﻿@model Cart
-@{var total = "$0.00";
-var title = "Cart";}
-@if (!(Model == null || Model.CartItems == null || Model.CartItems.Count == 0))
+﻿@model List<Cart>
+
+@{
+    var currentCart = Model.First();
+    var total = "$0.00";
+    var title = "Cart";
+}
+@if (!(currentCart == null || currentCart.CartItems == null || currentCart.CartItems.Count == 0))
 {
-    total = Model.total.ToString("c2");
-    title = Model.Name;
+    total = currentCart.total.ToString("c2");
+    title = currentCart.Name;
 
 
 }
 <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">@title</h5>
+    <div class="btn-group dropdown" style="width: 100%;">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            @currentCart.Name
+        </button>
+        <ul class="dropdown-menu" style="width:100%">
+
+            @foreach (var cart in Model)
+            {
+                if (cart.Id == currentCart.Id)
+                {
+                    <li>
+                        <tr>
+                            <a class="dropdown-item active d-flex justify-content-lg-between" aria-current="true" onclick="switchCart(@cart.Id)">@cart.Name</a>
+                        </tr>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <tr>
+                            <a class="dropdown-item d-flex justify-content-lg-between" onclick="switchCart(@cart.Id)">@cart.Name<img type="button" src="/delete.svg" style="width:25px;height:25px;" onclick="removeCart(@cart.Id)"></img></a>
+                        </tr>
+                    </li>
+                }
+            }
+            <li><hr class="dropdown-divider"></li>
+            <div class="input-group">
+                <input id="newCartName" type="text" class="form-control" placeholder="Add New Cart" aria-label="Add New Cart" aria-describedby="basic-addon2" >
+                <div class="input-group-append">
+                    <a style="display:flex" class="btn btn-outline-secondary mx-2" id="createCart" onclick="createCart(document.getElementById('newCartName').value);" type="button">Create</a>
+                </div>
+            </div>
+
+            
+        </ul>
+    </div>
+    @*<h5 id="offcanvasRightLabel">@title</h5>*@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
-
+    <hr />
 <label>
     <tr>
         <b>Total:</b>
-            <span class="badge ms-1 bg-secondary rounded-pill" id="total">@total</span>
+            <span class="badge ms-1 rounded-pill" id="total">@total</span>
     </tr>
 </label>
 
-@if(Model==null ||Model.CartItems ==null || Model.CartItems.Count == 0)
+    @if (currentCart == null || currentCart.CartItems == null || currentCart.CartItems.Count == 0)
 {
 
     <p>Cart is empty</p>
 }
 else
 {
-   
 
 
 
-@foreach (var product in Model.CartItems)
+
+        @foreach (var product in currentCart.CartItems)
 {
             
 

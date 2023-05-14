@@ -30,15 +30,15 @@
                                 <form asp-action="login" id"fields">
                                     @*<label id="result" class="control-label"></label>*@
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group" style=" width:100%">
+                                    <div class="form-floating mb-3" style=" width:100%">
                                         
+                                        <input style="width:100%" asp-for="Username"  class="form-control" placeholder="johndoe@example.com" type="email" />
                                         <label asp-for="Username" class="control-label"></label>
-                                        <input style="width:100%" asp-for="Username" class="form-control" placeholder="johndoe@example.com" type="email" />
                                         <span asp-validation-for="Username" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group" style="width:100%">
-                                        <label asp-for="Password" class="control-label"></label>
-                                        <input style="width:100%" asp-for="Password" class="form-control" placeholder="Password123" type="password"/>
+                                    <div class="form-floating" style="width:100%">
+                                        <input style="width:100%" asp-for="Password" class="form-control"  placeholder="Password123" type="password" />
+                                        <label asp-for="Password"  class="control-label"></label>
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                 </form>
