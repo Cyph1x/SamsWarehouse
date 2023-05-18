@@ -46,9 +46,11 @@ app.UseRouting();
 // Custom Middleware (inline)
 app.Use(async (context, next) =>
 {
+    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' http://www.w3.org");
     context.Response.Headers.Add("Referrer-Policy", "no-referrer");
     context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
     context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("Strict-Transport-Security", "max-age=63072000; includeSubDomains; ");
     await next(context);
 });
 app.UseAuthorization();

@@ -1,6 +1,31 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+.svgtext {
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    font-stretch: normal;
+    font-size: 85.33333588px;
+    line-height: 1.25;
+    font-family: sans-serif;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-feature-settings: normal;
+    text-align: start;
+    letter-spacing: 0;
+    word-spacing: 0;
+    text-anchor: start;
+    fill: #fff;
+    fill-opacity: 1;
+    stroke: none
+}
+
+.vh25{
+max-height: 25vh;
+}
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;

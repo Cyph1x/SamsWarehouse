@@ -27,21 +27,22 @@
                                     <b>SIGNUP</b>
                                 </div>
                                 <hr />
-                                <form asp-action="signup" id"fields">
+                                <form asp-action="signup" id="fields">
                                   
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-floating mb-3 w-100">
 
-                                        <input asp-for="Username" class="form-control w-100" placeholder="johndoe@example.com" type="email" />
-                                        <label asp-for="Username" class="control-label"></label>
-                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                        <input asp-for="Email" class="form-control w-100" placeholder="johndoe@example.com" type="email" />
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
                                     <div class="form-floating w-100">
                                         <input asp-for="Password" class="form-control w-100" placeholder="Password123" type="password" />
                                         <label asp-for="Password" class="control-label"></label>
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
-                                    <input type="submit" value="Signup" class="btn btn-primary mt-3 w-100" />
+                                    <button type="submit" id="signupBtn" class="btn btn-primary mt-3 w-100" />Signup</button>
+                                    
                                 </form>
                             </div>
                             <hr />
@@ -60,7 +61,11 @@
         </div>
     </section>
 
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/signup.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

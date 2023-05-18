@@ -8,7 +8,7 @@ namespace SamsWarehouse.Models.Data
         [System.ComponentModel.DataAnnotations.Required]
         [MaxLength(255)]
         [MinLength(1)]
-        public string Username { get; set; }
+        public string Email { get; set; }
         [System.ComponentModel.DataAnnotations.Required]
         [MaxLength(255)]
         [MinLength(8)]

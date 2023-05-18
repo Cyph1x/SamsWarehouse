@@ -40,11 +40,13 @@ namespace SamsWarehouse.Controllers
         }
         // POST: Auth/Login
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Login([FromForm] LoginDTO appUser)
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == appUser.Username);
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == appUser.Email);
                 if (user == null)
                 {
                     return Unauthorized("Invalid Login");
@@ -74,18 +76,19 @@ namespace SamsWarehouse.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Signup([FromForm] LoginDTO appUser)
         {
             if (ModelState.IsValid)
             {   
                 //check if username is already taken
-                if (await _context.Users.AnyAsync(u => u.Username == appUser.Username))
+                if (await _context.Users.AnyAsync(u => u.Email == appUser.Email))
                 {
-                    return BadRequest("Username is already taken");
+                    return BadRequest("Email is already taken");
                 }
                 //hash password
                 var newUser = new AppUser {
-                    Username = appUser.Username,
+                    Email = appUser.Email,
                     PasswordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(appUser.Password)    
                 };
                 _context.Add(newUser);

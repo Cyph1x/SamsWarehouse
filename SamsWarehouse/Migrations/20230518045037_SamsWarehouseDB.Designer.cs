@@ -12,7 +12,7 @@ using SamsWarehouse.Models.Data;
 namespace SamsWarehouse.Migrations
 {
     [DbContext(typeof(SQLDBContext))]
-    [Migration("20230514032605_SamsWarehouseDB")]
+    [Migration("20230518045037_SamsWarehouseDB")]
     partial class SamsWarehouseDB
     {
         /// <inheritdoc />
@@ -33,16 +33,18 @@ namespace SamsWarehouse.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("SelectedCart")
                         .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -59,7 +61,8 @@ namespace SamsWarehouse.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -109,9 +112,11 @@ namespace SamsWarehouse.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Details")
+                        .HasMaxLength(4096)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ingredients")
+                        .HasMaxLength(4096)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
@@ -119,11 +124,13 @@ namespace SamsWarehouse.Migrations
 
                     b.Property<string>("Size")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("images")
                         .HasColumnType("int");
