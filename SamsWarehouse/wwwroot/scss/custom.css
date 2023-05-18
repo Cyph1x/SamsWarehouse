@@ -12081,6 +12081,11 @@ textarea.form-control-lg {
   --bs-form-invalid-border-color: #ea868f;
 }
 
+.card {
+  text-decoration: none;
+  color: inherit;
+}
+
 [data-bs-theme=dark] {
   color-scheme: dark;
   --bs-primary-rgb: 11, 79, 108;

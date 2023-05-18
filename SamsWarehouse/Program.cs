@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using SamsWarehouse.Models.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddResponseCompression(options =>
@@ -14,6 +15,12 @@ builder.Services.AddDbContext<SQLDBContext>(options =>
 
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddHsts(options =>
+{
+    options.IncludeSubDomains = true;
+    //10 years
+    options.MaxAge = TimeSpan.FromDays(3650);
+});
 
 var app = builder.Build();
 app.UseResponseCompression();
@@ -36,7 +43,14 @@ app.UseStaticFiles(new StaticFileOptions
 });
 app.UseSession();
 app.UseRouting();
-
+// Custom Middleware (inline)
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    await next(context);
+});
 app.UseAuthorization();
 
 app.MapControllerRoute(

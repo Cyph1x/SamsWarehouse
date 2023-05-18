@@ -15,7 +15,10 @@ $tertiary-rgb: 20, 92, 158;
 @import "../lib/bootstrap/scss/root";
 
 
-
+.card {
+    text-decoration: none;
+    color:inherit;
+}
 [data-bs-theme=dark] {
     color-scheme: dark;
     --bs-primary-rgb: 11, 79, 108;

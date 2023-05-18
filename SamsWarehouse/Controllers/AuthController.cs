@@ -22,6 +22,7 @@ namespace SamsWarehouse.Controllers
         // GET: Auth
         public async Task<IActionResult> Index()
         {
+
               if (HttpContext.Session.GetInt32("ID") != null)
             {
                 return PartialView(Logout());

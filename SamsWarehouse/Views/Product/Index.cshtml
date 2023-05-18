@@ -17,14 +17,14 @@
             <div class="col mb-5">
                 <div class="card h-100 shadow">
                     <!-- Product image -->
-                    <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" style="color:inherit;text-decoration:none;">
-                        <img style="padding: 10px;" class="card-img-top bg-primary" src="@Url.Content("~/images/thumbnail/" + product.Id +"/"+ product.Id +"_1.webp")">
+                    <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" >
+                        <img class="card-img-top bg-primary p-2" src="@Url.Content("~/images/thumbnail/" + product.Id +"/"+ product.Id +"_1.webp")">
                     </a>
                     <!-- Product details -->
                     <div class="card-body p-2 pt-2 bg-body-secondary">
                         <div class="text-center">
                             <!-- Product name -->
-                            <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" style="color:inherit;text-decoration:none;">
+                            <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="text-decoration-none form-text">
                                 <h5 class="fw-bolder">@product.Title</h5>
                             </a>
                             <!-- Product price -->

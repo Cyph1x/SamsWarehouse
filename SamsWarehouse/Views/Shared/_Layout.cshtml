@@ -16,12 +16,11 @@
                 <div>
                 <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 422 437" height="50" width="50"><path d="m400.5 201.5-274.5 45c-25.5 22.5 1.504 42 1.504 42L396 290v37.5l-295.5-3c-12-7.5-20.992-31.5-24-52.5-3-21 19.5-43.5 19.5-43.5L49.508 53H24l-6-33h64.504L99 74l307.5-1.5-6 129zM153 341c22.367 0 40.5 18.129 40.5 40.5 0 22.367-18.133 40.5-40.5 40.5-22.371 0-40.496-18.133-40.496-40.5 0-22.371 18.125-40.5 40.496-40.5zm198 0c22.375 0 40.5 18.129 40.5 40.5 0 22.367-18.125 40.5-40.5 40.5-22.363 0-40.5-18.133-40.5-40.5 0-22.371 18.137-40.5 40.5-40.5z" clip-rule="evenodd" fill-rule="evenodd" class="logo"/><text y="178.575" x="140.101" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:85.33333588px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:&quot;sans-serif, Bold&quot;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0;word-spacing:0;writing-mode:lr-tb;text-anchor:start;fill:#fff;fill-opacity:1;stroke:none" class="logo" xml:space="preserve"><tspan y="178.575" x="140.101">S W</tspan></text></svg>Sam's Warehouse
                 </div>
-                <!--<img src = "~/Logo.svg" style="height:5vh;" class="navbar-brand logo" asp-area="" asp-controller="Product" asp-action="Index">SamsWarehouse</img>-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="align-items:stretch;display:flow-root;">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" >
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
@@ -32,8 +31,8 @@
                     </ul>
                     <div class="flex-grow-1 dropdown-center ">
 
-                        <input id="searchBar" style="width:100%" class=" rounded-5 p-2 mx-1 dropdown-toggle shadow" placeholder="Search our products" data-bs-toggle="dropdown" aria-expanded="false"></input>
-                        <ul style="width:100%;max-height:40vh" class="dropdown-menu shadow overflow-auto" id="searchResults">
+                        <input id="searchBar"  class=" rounded-5 p-2 mx-1 dropdown-toggle shadow w-100" placeholder="Search our products" data-bs-toggle="dropdown" aria-expanded="false"></input>
+                        <ul class="dropdown-menu shadow overflow-auto w-100" id="searchResults">
                         </ul>
                     </div>
                     <button class="btn mx-1" id="themeToggleBtn"></button>
@@ -67,7 +66,7 @@
         </nav>
     </header>
     <div class="">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" id="content">
             <div class="offcanvas offcanvas-end overflow-auto" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                 <div id="cartContents">
                 

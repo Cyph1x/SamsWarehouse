@@ -24,6 +24,7 @@ namespace SamsWarehouse.Controllers
         }
         public async Task<IActionResult> DetailsAsync(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();

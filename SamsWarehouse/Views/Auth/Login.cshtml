@@ -17,39 +17,39 @@
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card bg-primary" style="border-radius: 1rem;">
+                    <div class="card bg-primary rounded-4" >
                         <div class="card-body p-5">
 
                             <div class="m-5">
 
                                 <img src="~/Logo.svg" height="100" width="100">Sam's Warehouse</img>
-                                <p class="text-center">
+                                <div class="text-center">
                                     <b>LOGIN</b>
-                                </p>
+                                </div>
                                 <hr />
                                 <form asp-action="login" id"fields">
                                     @*<label id="result" class="control-label"></label>*@
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-floating mb-3" style=" width:100%">
+                                    <div class="form-floating mb-3 w-100" >
                                         
-                                        <input style="width:100%" asp-for="Username"  class="form-control" placeholder="johndoe@example.com" type="email" />
+                                        <input asp-for="Username" class="form-control w-100" placeholder="johndoe@example.com" type="email" />
                                         <label asp-for="Username" class="control-label"></label>
                                         <span asp-validation-for="Username" class="text-danger"></span>
                                     </div>
-                                    <div class="form-floating" style="width:100%">
-                                        <input style="width:100%" asp-for="Password" class="form-control"  placeholder="Password123" type="password" />
+                                    <div class="form-floating w-100">
+                                        <input asp-for="Password" class="form-control w-100" placeholder="Password123" type="password" />
                                         <label asp-for="Password"  class="control-label"></label>
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                 </form>
-                                <button onClick="login()" class="btn btn-primary mt-3" style="width:100%" />Login</button>
+                                <button onClick="login()" class="btn btn-primary mt-3 w-100" />Login</button>
                             </div>
                             <hr />
                             <div class="mx-5">
-                                <p class="text-center">
+                                <div class="text-center mb-2">
                                     <b>Don't have an account?</b>
-                                </p>
-                                <a class="btn btn-outline-secondary" style="width:100%" asp-area="" asp-controller="Auth" asp-action="signup">Signup</a>
+                                </div>
+                                <a class="btn btn-outline-secondary w-100" asp-area="" asp-controller="Auth" asp-action="signup">Signup</a>
 
                             </div>
 

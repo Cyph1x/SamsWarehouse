@@ -20,22 +20,22 @@ namespace SamsWarehouse.Controllers
             _context = context;
         }
 
-        // GET: Cart
-        public async Task<IActionResult> Index()
-        {
-            int? id = HttpContext?.Session?.GetInt32("ID");
-            if (!id.HasValue)
-            {
-                return RedirectToAction("Login","Auth");
-            }
-            var carts = _context.Carts.Include(c => c.User).Where(c => c.UserId == id);
-            return View(await carts.ToListAsync());
-            
-
-        }
+        //// GET: Cart
+        //public async Task<IActionResult> Index()
+        //{
+        //    int? id = HttpContext?.Session?.GetInt32("ID");
+        //    if (!id.HasValue)
+        //    {
+        //        return RedirectToAction("Login", "Auth");
+        //    }
+        //    var carts = _context.Carts.Include(c => c.User).Where(c => c.UserId == id);
+        //    return View(await carts.ToListAsync());
 
 
-        
+        //}
+
+
+
         // GET: CartModal/{id}
         [HttpGet("Cart/{id}")]
         public async Task<IActionResult> CartModalAsync([FromRoute] int? id)
@@ -91,7 +91,7 @@ namespace SamsWarehouse.Controllers
             {
                 return Unauthorized();
             }
-            var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
+            var user = await _context.Users.SingleOrDefaultAsync(c => c.Id == id);
             var newCart = new Cart
             {
                 UserId = user.Id,
@@ -118,13 +118,13 @@ namespace SamsWarehouse.Controllers
             {
                 return Unauthorized();
             }
-            
+
             //get the current user
             var user = _context.Users.FirstOrDefault(c=>c.Id == id);
 
             item.CartId = (int)user.SelectedCart;
             //prevent duplicates
-            var existingItem = _context.CartItems.Where(c => c.CartId == item.CartId && c.ProductId == item.ProductId).FirstOrDefault();
+            var existingItem = _context.CartItems.Where(c => c.CartId == item.CartId && c.ProductId == item.ProductId).SingleOrDefault();
             if (existingItem != null)
             {
                 //if the request method is post then set the quantity
@@ -159,9 +159,9 @@ namespace SamsWarehouse.Controllers
 
             
             await _context.SaveChangesAsync();
-            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == id && c.Id == user.SelectedCart);
+            var cart = await _context.Carts.SingleOrDefaultAsync(c => c.UserId == id && c.Id == user.SelectedCart);
             var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
-            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();
+            var carts = await _context.Carts.Where(c => c.UserId == id).ToListAsync();
             carts.Remove(cart);
             carts.Insert(0, cart);
             return PartialView("CartModal",carts);
@@ -186,6 +186,7 @@ namespace SamsWarehouse.Controllers
             }
             _context.CartItems.Remove(item);
             await _context.SaveChangesAsync();
+            
             var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Id == user.SelectedCart);
             var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
             var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();

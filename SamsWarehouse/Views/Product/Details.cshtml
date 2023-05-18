@@ -24,11 +24,11 @@
                 }   
             </div >
             <div class="row-cols-5 bg-body-secondary rounded">
-                <img type="button" data-bs-target="#productImages" data-bs-slide-to="0" src="@Url.Content("~/images/original/" + Model.Id +"/"+ Model.Id +"_1.webp")" style="height:100px; width:100px" class="border m-1">
+                <img type="button" data-bs-target="#productImages" data-bs-slide-to="0" src="@Url.Content("~/images/original/" + Model.Id +"/"+ Model.Id +"_1.webp")" class="border m-1">
                 @*<button type="button" data-bs-target="#productImages" data-bs-slide-to="0" class="active" aria-current="true"></button>*@
                 @for (int i = 1; i < Model.images; i++)
                 {
-                    <img type="button" data-bs-target="#productImages" data-bs-slide-to="@i" src="@Url.Content("~/images/original/" + Model.Id +"/"+ Model.Id +"_" + (i+1) + ".webp")" style="height:100px; width:100px" class="border m-1">
+                    <img type="button" data-bs-target="#productImages" data-bs-slide-to="@i" src="@Url.Content("~/images/original/" + Model.Id +"/"+ Model.Id +"_" + (i+1) + ".webp")"  class="border m-1" w-100 h-100>
                     @*<button type="button" data-bs-target="#productImages" data-bs-slide-to="@i"></button>*@
                 }
             </div>
@@ -52,12 +52,12 @@
     @if (!String.IsNullOrEmpty(Model.Details))
     {
         <h2 class="bg-primary rounded-3 p-2 my-2">Details</h2>
-        <div id="Details" class="text-left bg-body-tertiary rounded-3 p-2 mx-4" style="white-space: pre-wrap;">@Model.Details</div>
+        <div id="Details" class="text-left bg-body-tertiary rounded-3 p-2 mx-4"><p>@Model.Details</p></div>
     }
      @if (!String.IsNullOrEmpty(Model.Ingredients))
     {
         <h2 class="bg-primary rounded-3 p-2 my-2">Ingredients</h2>
-        <div id="Ingredients" class="text-left bg-body-tertiary rounded-3 p-2 mx-4" style="white-space: pre-wrap;">@Model.Ingredients</div>
+        <div id="Ingredients" class="text-left bg-body-tertiary rounded-3 p-2 mx-4"><p>@Model.Ingredients</p></div>
     }
 </div>
 
