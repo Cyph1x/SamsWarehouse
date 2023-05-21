@@ -40,18 +40,18 @@ namespace SamsWarehouse.Controllers
         [HttpGet("Cart/{id}")]
         public async Task<IActionResult> CartModalAsync([FromRoute] int? id)
         {
+            int? userId = HttpContext?.Session?.GetInt32("ID");
+            if (!userId.HasValue)
+            {
+                return Unauthorized();
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == userId);
+            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == userId).ToListAsync();
+
             if (id == null)
             {
-                id = HttpContext?.Session?.GetInt32("ID");
-                if (!id.HasValue)
-                {
-                    return Unauthorized();
-                }
-
-                var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
-
-                var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();
-                var cart = carts.FirstOrDefault(c => c.UserId == id && c.Id == user.SelectedCart);
+                var cart = carts.FirstOrDefault(c => c.Id == user.SelectedCart);
                 var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
                 carts.Remove(cart);
                 carts.Insert(0, cart);
@@ -59,15 +59,7 @@ namespace SamsWarehouse.Controllers
             }
             else
             {
-                int? userId = HttpContext?.Session?.GetInt32("ID");
-                if (!userId.HasValue)
-                {
-                    return Unauthorized();
-                }
-
-                var user = await _context.Users.FirstOrDefaultAsync(c => c.Id == userId);
-                var carts = await _context.Carts.Where(c => c.UserId == userId).ToListAsync();
-                var cart = carts.FirstOrDefault(c => c.UserId == userId && c.Id == id);
+                var cart = carts.FirstOrDefault(c => c.Id == id);
                 if (cart == null)
                 {
                     cart = carts.FirstOrDefault(c => c.UserId == id);
