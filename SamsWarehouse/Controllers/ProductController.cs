@@ -16,15 +16,15 @@ namespace SamsWarehouse.Controllers
             _logger = logger;
             _dbContext = dbContext;
         }
-        
+
         public async Task<IActionResult> IndexAsync()
         {
-            
+
             return View(await _dbContext.Products.ToListAsync());
         }
         public async Task<IActionResult> DetailsAsync(int? id)
         {
-            
+
             if (id == null)
             {
                 return NotFound();

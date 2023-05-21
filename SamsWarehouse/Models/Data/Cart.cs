@@ -13,7 +13,7 @@ namespace SamsWarehouse.Models
         public AppUser User { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
         [Range(0, double.MaxValue)]
-        
+
         internal double total => CartItems.Sum(c => c.Product.Price * c.Quantity);
     }
 }

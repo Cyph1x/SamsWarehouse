@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SamsWarehouse.Models;
 using SamsWarehouse.Models.Data;
@@ -36,7 +30,7 @@ namespace SamsWarehouse.Controllers
 
 
 
-        // GET: CartModal/{id}
+        // GET CartModal/{id}
         [HttpGet("Cart/{id}")]
         public async Task<IActionResult> CartModalAsync([FromRoute] int? id)
         {
@@ -62,7 +56,7 @@ namespace SamsWarehouse.Controllers
                 var cart = carts.FirstOrDefault(c => c.Id == id);
                 if (cart == null)
                 {
-                    cart = carts.FirstOrDefault(c => c.UserId == id);
+                    cart = carts.FirstOrDefault(c => c.UserId == userId);
                 }
                 user.SelectedCart = cart.Id;
                 _context.Users.Update(user);
@@ -104,16 +98,14 @@ namespace SamsWarehouse.Controllers
         [HttpPut]
         public async Task<IActionResult> Items([FromBody] CartItem item)
         {
-            
+
             int? id = HttpContext?.Session?.GetInt32("ID");
             if (!id.HasValue)
             {
                 return Unauthorized();
             }
-
             //get the current user
-            var user = _context.Users.FirstOrDefault(c=>c.Id == id);
-
+            var user = _context.Users.FirstOrDefault(c => c.Id == id);
             item.CartId = (int)user.SelectedCart;
             //prevent duplicates
             var existingItem = _context.CartItems.Where(c => c.CartId == item.CartId && c.ProductId == item.ProductId).SingleOrDefault();
@@ -128,7 +120,7 @@ namespace SamsWarehouse.Controllers
                         temp = 0;
                     }
                     existingItem.Quantity = temp;
-                    
+
                 }
                 else
                 {
@@ -145,19 +137,16 @@ namespace SamsWarehouse.Controllers
                 //add the item to the carts
                 await _context.CartItems.AddAsync(item);
             }
-            
-            
             //save the changes
-
-            
             await _context.SaveChangesAsync();
             var cart = await _context.Carts.SingleOrDefaultAsync(c => c.UserId == id && c.Id == user.SelectedCart);
             var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
             var carts = await _context.Carts.Where(c => c.UserId == id).ToListAsync();
             carts.Remove(cart);
             carts.Insert(0, cart);
-            return PartialView("CartModal",carts);
+            return PartialView("CartModal", carts);
         }
+        // Delete Cart/Items
         [HttpDelete]
         public async Task<IActionResult> Items([FromRoute] int id)
         {
@@ -178,10 +167,10 @@ namespace SamsWarehouse.Controllers
             }
             _context.CartItems.Remove(item);
             await _context.SaveChangesAsync();
-            
+
             var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Id == user.SelectedCart);
             var cartItems = await _context.CartItems.Include(c => c.Product).Where(c => c.CartId == cart.Id).ToListAsync();
-            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == id).ToListAsync();
+            var carts = await _context.Carts.Include(c => c.User).Where(c => c.UserId == userId).ToListAsync();
             carts.Remove(cart);
             carts.Insert(0, cart);
             return PartialView("CartModal", carts);
@@ -214,12 +203,12 @@ namespace SamsWarehouse.Controllers
             return PartialView("CartModal", carts);
         }
 
-        
+
 
 
         private bool CartExists(int id)
         {
-          return (_context.Carts?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Carts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

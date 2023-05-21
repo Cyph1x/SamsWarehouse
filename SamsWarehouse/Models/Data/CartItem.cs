@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SamsWarehouse.Models
 {
@@ -15,7 +14,7 @@ namespace SamsWarehouse.Models
         public DateTime Added { get; set; } = DateTime.Now;
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; } = 1;
-        
+
         public Cart Cart { get; set; }
         public Product Product { get; set; }
     }

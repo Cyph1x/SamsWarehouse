@@ -11,9 +11,9 @@ document.querySelectorAll('[data-val]')
 
             if (!fields.valid()) {
                 //disable the login button
-                loginBtn.disabled = "disabled";
+                signupBtn.disabled = "disabled";
             } else {
-                loginBtn.removeAttribute("disabled");
+                signupBtn.removeAttribute("disabled");
             }
         })
     })

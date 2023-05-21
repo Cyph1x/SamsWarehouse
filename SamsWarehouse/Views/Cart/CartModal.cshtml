@@ -9,109 +9,89 @@
 {
     total = currentCart.total.ToString("c2");
     title = currentCart.Name;
-
-
 }
 <div class="offcanvas-header">
     <div class="btn-group dropdown w-100">
         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             @currentCart.Name
         </button>
-        <ul class="dropdown-menu w-100" >
+        <ul class="dropdown-menu w-100">
 
             @foreach (var cart in Model)
             {
                 if (cart.Id == currentCart.Id)
                 {
                     <li>
-
                         <a class="dropdown-item active d-flex justify-content-lg-between" data-switch-cart-id="@cart.Id" aria-current="true">@cart.Name</a>
-                        
                     </li>
                 }
                 else
                 {
                     <li class="d-flex">
-
                         <button class="dropdown-item justify-content-lg-between" data-switch-cart-id="@cart.Id">
-                                @cart.Name
-                            </button>
-                            <img type="button" src="/delete.svg" width=25 height=25 data-remove-cart-id="@cart.Id">
-                            </img>
+                            @cart.Name
+                        </button>
+                        <img type="button" src="/delete.svg" width=25 height=25 data-remove-cart-id="@cart.Id">
                         
                     </li>
                 }
             }
             <li><hr class="dropdown-divider"></li>
             <div class="input-group">
-                <input id="newCartName" type="text" class="form-control" placeholder="Add New Cart" aria-label="Add New Cart" aria-describedby="basic-addon2" >
+                <input id="newCartName" type="text" class="form-control" placeholder="Add New Cart" aria-label="Add New Cart" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <a  class="btn btn-outline-secondary mx-2 d-flex" id="createCart"  type="button">Create</a>
+                    <a class="btn btn-outline-secondary mx-2 d-flex" id="createCart" type="button">Create</a>
                 </div>
             </div>
-
-            
         </ul>
     </div>
-    @*<h5 id="offcanvasRightLabel">@title</h5>*@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
     <hr />
-<label>
-    <tr>
-        <b>Total:</b>
+    <label>
+        <tr>
+            <b>Total:</b>
             <span class="text" id="total">@total</span>
-    </tr>
-</label>
-
+        </tr>
+    </label>
     @if (currentCart == null || currentCart.CartItems == null || currentCart.CartItems.Count == 0)
-{
-
-    <p>Cart is empty</p>
-}
-else
-{
-
-
-
-
+    {
+        <p>Cart is empty</p>
+    }
+    else
+    {
         @foreach (var product in currentCart.CartItems)
-{
-            
-
-
-        <hr />
-        <div class="row">
-            <div class="col-3">
-                <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none form-text">
+        {
+            <hr />
+            <div class="row">
+                <div class="col-3">
+                    <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none form-text">
                         <img src="@Url.Content("~/images/thumbnail/" + product.ProductId +"/"+ product.ProductId +"_1.webp")" alt="..." class="img-thumbnail bg-primary">
-                </a>
-            </div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-12">
-                        <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none form-text">
-                            <h6>@product.Product.Title</h6>
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <h6>@product.Product.Price.ToString("c2")</h6>
-                    </div>
-                    <div class="col-12">
+                    </a>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none form-text">
+                                <h6>@product.Product.Title</h6>
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <h6>@product.Product.Price.ToString("c2")</h6>
+                        </div>
+                        <div class="col-12">
                             <div class="d-flex align-items-center">
                                 <input min="0" name="quantity" value="@product.Quantity" type="number" class="form-control form-control-sm" data-set-item-quantity-id="@product.ProductId">
-                                <img type="button" src="/delete.svg" width=25 height=25 data-remove-from-cart-id="@product.ProductId" >
-                                </img>
-                
+                                <img type="button" src="/delete.svg" width=25 height=25 data-remove-from-cart-id="@product.ProductId">
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-        </div>
-    
-}   
-    
-}
+        }
+    }
 </div>
+
+
+

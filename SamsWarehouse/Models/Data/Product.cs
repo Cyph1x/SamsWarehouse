@@ -19,6 +19,6 @@ namespace SamsWarehouse.Models
         public string? Ingredients { get; set; }
         [Range(0, int.MaxValue)]
         public int images { get; set; }
-        public ICollection<CartItem> CartItems { get; set;}
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }

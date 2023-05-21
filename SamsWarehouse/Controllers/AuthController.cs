@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SamsWarehouse.Models;
 using SamsWarehouse.Models.Data;
@@ -23,7 +18,7 @@ namespace SamsWarehouse.Controllers
         public async Task<IActionResult> Index()
         {
 
-              if (HttpContext.Session.GetInt32("ID") != null)
+            if (HttpContext.Session.GetInt32("ID") != null)
             {
                 return PartialView(Logout());
             }
@@ -41,7 +36,7 @@ namespace SamsWarehouse.Controllers
         // POST: Auth/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
+
         public async Task<IActionResult> Login([FromForm] LoginDTO appUser)
         {
             if (ModelState.IsValid)
@@ -80,16 +75,17 @@ namespace SamsWarehouse.Controllers
         public async Task<IActionResult> Signup([FromForm] LoginDTO appUser)
         {
             if (ModelState.IsValid)
-            {   
+            {
                 //check if username is already taken
                 if (await _context.Users.AnyAsync(u => u.Email == appUser.Email))
                 {
                     return BadRequest("Email is already taken");
                 }
                 //hash password
-                var newUser = new AppUser {
+                var newUser = new AppUser
+                {
                     Email = appUser.Email,
-                    PasswordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(appUser.Password)    
+                    PasswordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(appUser.Password)
                 };
                 _context.Add(newUser);
                 await _context.SaveChangesAsync();
@@ -106,7 +102,7 @@ namespace SamsWarehouse.Controllers
                 _context.Users.Update(newUser);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index","Product");
+                return RedirectToAction("Index", "Product");
             }
             return BadRequest();
         }
@@ -121,7 +117,7 @@ namespace SamsWarehouse.Controllers
 
         private bool AppUserExists(int id)
         {
-          return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

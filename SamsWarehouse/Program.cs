@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using SamsWarehouse.Models.Data;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddResponseCompression(options =>
