@@ -61,7 +61,7 @@
 <label>
     <tr>
         <b>Total:</b>
-            <span class="badge ms-1 rounded-pill" id="total">@total</span>
+            <span class="text" id="total">@total</span>
     </tr>
 </label>
 
@@ -84,12 +84,16 @@ else
         <hr />
         <div class="row">
             <div class="col-3">
-                <img src="@Url.Content("~/images/thumbnail/" + product.Product.Id +"/"+ product.Product.Id +"_1.webp")" alt="..." class="img-thumbnail">
+                <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none form-text">
+                    <img src="@Url.Content("~/images/thumbnail/" + product.ProductId +"/"+ product.ProductId +"_1.webp")" alt="..." class="img-thumbnail">
+                </a>
             </div>
             <div class="col-8">
                 <div class="row">
                     <div class="col-12">
-                        <h6>@product.Product.Title</h6>
+                        <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none form-text">
+                            <h6>@product.Product.Title</h6>
+                        </a>
                     </div>
                     <div class="col-12">
                         <h6>@product.Product.Price.ToString("c2")</h6>
