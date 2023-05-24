@@ -41,4 +41,7 @@ async function login() {
     } catch (error) {
     }
 }
-document.getElementById('loginBtn').addEventListener('click', login);
+$('#fields').submit(function (event) {
+    event.preventDefault();
+    login();
+});

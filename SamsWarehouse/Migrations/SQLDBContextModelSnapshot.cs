@@ -56,6 +56,9 @@ namespace SamsWarehouse.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Added")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -78,9 +81,6 @@ namespace SamsWarehouse.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Added")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("CartId")
                         .HasColumnType("int");

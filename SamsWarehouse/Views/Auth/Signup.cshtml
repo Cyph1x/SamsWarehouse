@@ -41,8 +41,7 @@
                                         <label asp-for="Password" class="control-label"></label>
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
-                                    <button type="submit" id="signupBtn" class="btn btn-secondary mt-3 w-100" />Signup</button>
-                                    
+                                    <input id="signupBtn" class="btn btn-secondary mt-3 w-100" type="submit" value="Signup">
                                 </form>
                             </div>
                             <hr />
@@ -61,11 +60,12 @@
         </div>
     </section>
 
-    <script src="~/js/signup.js"></script>
+    
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/signup.js"></script>
 </body>
 </html>

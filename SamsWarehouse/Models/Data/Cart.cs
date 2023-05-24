@@ -10,6 +10,7 @@ namespace SamsWarehouse.Models
         public string Name { get; set; }
         [Range(0, int.MaxValue)]
         public int UserId { get; set; }
+        public DateTime Added { get; set; } = DateTime.Now;
         public AppUser User { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
         [Range(0, double.MaxValue)]

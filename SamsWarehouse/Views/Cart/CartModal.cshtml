@@ -37,17 +37,23 @@
                 }
             }
             <li><hr class="dropdown-divider"></li>
-            <div class="input-group">
-                <input id="newCartName" type="text" class="form-control" placeholder="Add New Cart" aria-label="Add New Cart" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <a class="btn btn-outline-secondary mx-2 d-flex" id="createCart" type="button">Create</a>
+            
+            <form class="input-group" id="createCart">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="newCartName" placeholder="Cart 123">
+                    <label for="newCartName">New Cart Name</label>
                 </div>
-            </div>
+                <div class="input-group-append">
+                    <input class="btn btn-outline-secondary mx-2 h-100" type="submit" value="Create"></button>
+                </div>
+            </form>
         </ul>
     </div>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
+
 <div class="offcanvas-body">
+    Created at: @currentCart.Added
     <hr />
     <label>
         <tr>

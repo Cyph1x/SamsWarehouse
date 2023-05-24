@@ -5,8 +5,9 @@ const cart = document.getElementById('cartContents');
 
 
 function addListeners() {
-    //new cart button
-    document.getElementById("createCart").addEventListener("click", () => {
+    //new cart
+    $('#createCart').submit(function (event) {
+        event.preventDefault();
         createCart(document.getElementById('newCartName').value);
     });
     //remove cart
@@ -110,7 +111,7 @@ function addToCart(id, quantity) {
 }
 
 var deleteFromCartxhr = null;
-//add product to cart
+//remove product from cart
 function removeFromCart(id) {
     if (deleteFromCartxhr !== null) {
         deleteFromCartxhr.abort();
@@ -153,7 +154,7 @@ function setQuantityCart(id, quantity) {
 }
 
 var createCartxhr = null;
-//add product to cart
+//create cart
 function createCart(name) {
     if (createCartxhr !== null) {
         createCartxhr.abort();
@@ -173,7 +174,7 @@ function createCart(name) {
     createCartxhr.send(JSON.stringify({ "Name": name }));
 }
 var deleteCartxhr = null;
-//add product to cart
+//delete cart
 function removeCart(id) {
     if (deleteCartxhr !== null) {
         deleteCartxhr.abort();
