@@ -16,35 +16,30 @@
             @currentCart.Name
         </button>
         <ul class="dropdown-menu w-100">
-
             @foreach (var cart in Model)
             {
-                if (cart.Id == currentCart.Id)
+                <li class="d-flex">
+                @if (cart.Id == currentCart.Id)
                 {
-                    <li>
                         <a class="dropdown-item active d-flex justify-content-lg-between" data-switch-cart-id="@cart.Id" aria-current="true">@cart.Name</a>
-                    </li>
                 }
                 else
                 {
-                    <li class="d-flex">
                         <button class="dropdown-item justify-content-lg-between" data-switch-cart-id="@cart.Id">
                             @cart.Name
                         </button>
-                        <img type="button" src="/delete.svg" width=25 height=25 data-remove-cart-id="@cart.Id">
-                        
-                    </li>
+                        <img type="button" src="/delete.svg" width=25 height=25 data-remove-cart-id="@cart.Id">     
                 }
+                </li>
             }
-            <li><hr class="dropdown-divider"></li>
-            
-            <form class="input-group needs-validation" id="createCart" novalidate>
+            <hr class="dropdown-divider">
+            <form class="input-group needs-validation px-2" id="createCart" novalidate>
                 <div class="form-floating">
                     <input type="text" class="form-control" id="newCartName" placeholder="Cart 123" minlength="1" maxlength="32" required>
                     <label for="newCartName">New Cart Name</label>
                 </div>
                 <div class="input-group-append">
-                    <input class="btn btn-outline-secondary mx-2 h-100" type="submit" value="Create"></button>
+                    <input class="btn btn-outline-secondary h-100 rounded-start-0" type="submit" value="Create"></button>
                 </div>
             </form>
         </ul>
