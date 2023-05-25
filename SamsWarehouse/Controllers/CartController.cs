@@ -70,8 +70,13 @@ namespace SamsWarehouse.Controllers
         }
         // Post Cart
         [HttpPost]
-        public async Task<IActionResult> Index([FromBody] Cart cart)
+        public async Task<IActionResult> Index([Bind("Name")] [FromBody] Cart cart)
         {
+            if (cart.Name.Length < 1 || cart.Name.Length > 32)
+            {
+                return BadRequest();
+            }
+            
             int? id = HttpContext?.Session?.GetInt32("ID");
             if (!id.HasValue)
             {

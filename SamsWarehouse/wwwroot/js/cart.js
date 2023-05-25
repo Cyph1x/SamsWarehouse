@@ -8,7 +8,27 @@ function addListeners() {
     //new cart
     $('#createCart').submit(function (event) {
         event.preventDefault();
-        createCart(document.getElementById('newCartName').value);
+        var form = document.getElementById('createCart')
+        if (!form.checkValidity()) {
+            event.stopPropagation();
+        } else {
+            createCart(document.getElementById('newCartName').value);
+        }
+
+        form.classList.add('was-validated');
+        
+    });
+    $('#createCart').submit(function (event) {
+        event.preventDefault();
+        var form = document.getElementById('createCart')
+        if (!form.checkValidity()) {
+            event.stopPropagation();
+        } else {
+            createCart(document.getElementById('newCartName').value);
+        }
+
+        form.classList.add('was-validated');
+
     });
     //remove cart
     document.querySelectorAll('[data-remove-cart-id]')
@@ -43,6 +63,8 @@ function addListeners() {
                 setQuantityCart(id, quantity);
             })
         })
+        
+
 
 }
 

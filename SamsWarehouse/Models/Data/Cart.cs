@@ -6,7 +6,9 @@ namespace SamsWarehouse.Models
     {
         [Editable(false)]
         public int Id { get; set; }
-        [MaxLength(255)]
+        [MaxLength(32)]
+        [MinLength(1)]
+        [Required]
         public string Name { get; set; }
         [Range(0, int.MaxValue)]
         public int UserId { get; set; }

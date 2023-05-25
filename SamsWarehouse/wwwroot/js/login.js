@@ -8,7 +8,7 @@ document.querySelectorAll('[data-val]')
     .forEach(field => {
         field.addEventListener('keyup', () => {
             var fields = $(document.getElementById("fields"));
-
+            
             if (!fields.valid()) {
                 //disable the login button
                 loginBtn.disabled = "disabled";
@@ -45,3 +45,10 @@ $('#fields').submit(function (event) {
     event.preventDefault();
     login();
 });
+var settings = {
+    validClass: "is-valid",
+    errorClass: "is-invalid"
+
+};
+$.validator.setDefaults(settings);
+$.validator.unobtrusive.options = settings;

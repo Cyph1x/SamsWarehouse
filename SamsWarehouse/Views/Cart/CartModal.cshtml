@@ -38,9 +38,9 @@
             }
             <li><hr class="dropdown-divider"></li>
             
-            <form class="input-group" id="createCart">
+            <form class="input-group needs-validation" id="createCart" novalidate>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="newCartName" placeholder="Cart 123">
+                    <input type="text" class="form-control" id="newCartName" placeholder="Cart 123" minlength="1" maxlength="32" required>
                     <label for="newCartName">New Cart Name</label>
                 </div>
                 <div class="input-group-append">

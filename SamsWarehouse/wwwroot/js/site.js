@@ -91,7 +91,7 @@ const startSearch = () => {
         xhr.abort();
         xhr = null;
     }
-    if (searchBar.value.length > 0) {
+    if (searchBar.value.length > 0 && searchBar.value.length <255) {
 xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
