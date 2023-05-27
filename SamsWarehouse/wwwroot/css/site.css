@@ -22,8 +22,8 @@ for details on configuring this project to bundle and minify static web assets. 
     stroke: none
 }
 
-.vh25{
-max-height: 25vh;
+.vh25 {
+    max-height: 25vh;
 }
 
 a.navbar-brand {
@@ -31,14 +31,10 @@ a.navbar-brand {
     text-align: center;
     word-break: break-all;
 }
-p{
+
+p {
     white-space: pre-wrap;
 }
-
-
-
-
-
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -89,11 +85,7 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
-
-
-
 @media (min-width: 200px) {
-
     .single-card {
         padding: 10px;
         flex: 0 1 calc(100% - 1em);
@@ -129,6 +121,7 @@ body {
         text-align: center;
     }
 }
+
 @keyframes logo {
     100% {
         fill: transparent;
@@ -140,5 +133,3 @@ body {
     animation-duration: 2s;
     animation-direction: reverse;
 }
-
-

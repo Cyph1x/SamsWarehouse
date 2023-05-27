@@ -21,7 +21,10 @@
                 <li class="d-flex">
                 @if (cart.Id == currentCart.Id)
                 {
-                        <a class="dropdown-item active d-flex justify-content-lg-between" data-switch-cart-id="@cart.Id" aria-current="true">@cart.Name</a>
+                        <button class="dropdown-item active d-flex justify-content-lg-between" data-switch-cart-id="@cart.Id" aria-current="true">
+                            @cart.Name
+                        </button>
+
                 }
                 else
                 {
@@ -39,7 +42,7 @@
                     <label for="newCartName">New Cart Name</label>
                 </div>
                 <div class="input-group-append">
-                    <input class="btn btn-outline-secondary h-100 rounded-start-0" type="submit" value="Create"></button>
+                    <input class="btn btn-outline-secondary h-100 rounded-start-0" type="submit" value="Create">
                 </div>
             </form>
         </ul>

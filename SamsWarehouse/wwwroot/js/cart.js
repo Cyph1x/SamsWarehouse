@@ -1,225 +1,225 @@
-//create the cart
 
+const CART = document.getElementById('cartContents');
 
-const cart = document.getElementById('cartContents');
-
-
-function addListeners() {
-    //new cart
-    $('#createCart').submit(function (event) {
+function addListeners(){
+    // New cart.
+    $('#createCart').submit(function (event){
         event.preventDefault();
         var form = document.getElementById('createCart')
-        if (!form.checkValidity()) {
+        if (!form.checkValidity()){
             event.stopPropagation();
-        } else {
+        } else{
             createCart(document.getElementById('newCartName').value);
         }
 
         form.classList.add('was-validated');
-        
     });
-    $('#createCart').submit(function (event) {
-        event.preventDefault();
-        var form = document.getElementById('createCart')
-        if (!form.checkValidity()) {
-            event.stopPropagation();
-        } else {
-            createCart(document.getElementById('newCartName').value);
-        }
-
-        form.classList.add('was-validated');
-
-    });
-    //remove cart
+    // Remove cart.
     document.querySelectorAll('[data-remove-cart-id]')
-        .forEach(button => {
-            button.addEventListener('click', () => {
+        .forEach(button =>{
+            button.addEventListener('click', () =>{
                 var id = button.getAttribute('data-remove-cart-id');
                 removeCart(id);
             })
         })
-    //switch cart
+    // Switch cart.
     document.querySelectorAll('[data-switch-cart-id]')
-        .forEach(button => {
-            button.addEventListener('click', () => {
+        .forEach(button =>{
+            button.addEventListener('click', () =>{
                 var id = button.getAttribute('data-switch-cart-id');
                 switchCart(id);
             })
         })
-    //remove from cart
+    // Remove from cart.
     document.querySelectorAll('[data-remove-from-cart-id]')
-        .forEach(button => {
-            button.addEventListener('click', () => {
+        .forEach(button =>{
+            button.addEventListener('click', () =>{
                 var id = button.getAttribute('data-remove-from-cart-id');
                 removeFromCart(id);
             })
         })
-    //set item quantity
+    // Set item quantity.
     document.querySelectorAll('[data-set-item-quantity-id]')
-        .forEach(field => {
-            field.addEventListener('change', () => {
+        .forEach(field =>{
+            field.addEventListener('change', () =>{
                 var id = field.getAttribute('data-set-item-quantity-id');
                 var quantity = field.value;
                 setQuantityCart(id, quantity);
             })
         })
-        
-
-
 }
 
-var cartxhr = null;
-
+var CARTXHR = null;
+// Refresh the cart view.
 function updateCart(){
-    if (cartxhr !== null) {
-        cartxhr.abort();
-        cartxhr = null;
+    if (CARTXHR !== null){
+        CARTXHR.abort();
+        CARTXHR = null;
     }
-    cartxhr = new XMLHttpRequest();
-    cartxhr.onreadystatechange = function () {
+    CARTXHR = new XMLHttpRequest();
+    CARTXHR.onreadystatechange = function (){
         if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
             document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
             addListeners();
         }
     };
-    cartxhr.open("GET", "/Cart/CartModal", true);
-    cartxhr.send();
-
+    CARTXHR.open("GET", "/Cart/CartModal", true);
+    CARTXHR.send();
 };
 
-var switchCartxhr = null;
-
-function switchCart(id) {
-    if (switchCartxhr !== null) {
-        switchCartxhr.abort();
-        switchCartxhr = null;
+var SWITCHCARTXHR = null;
+// Select a different cart.
+function switchCart(id){
+    if (SWITCHCARTXHR !== null){
+        SWITCHCARTXHR.abort();
+        SWITCHCARTXHR = null;
     }
-    switchCartxhr = new XMLHttpRequest();
-    switchCartxhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
+    SWITCHCARTXHR = new XMLHttpRequest();
+    SWITCHCARTXHR.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200){
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
             document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
             addListeners();
         }
     };
-    switchCartxhr.open("GET", "/Cart/" + id, true);
-    switchCartxhr.send();
-
+    SWITCHCARTXHR.open("GET", "/Cart/" + id, true);
+    SWITCHCARTXHR.send();
 };
 
-updateCart();
-var addToCartxhr = null;
-//add product to cart
-function addToCart(id, quantity) {
-    if (addToCartxhr !== null) {
-        addToCartxhr.abort();
-        addToCartxhr = null;
+
+var ADDTOCARTXHR = null;
+// Add product to cart.
+function addToCart(id, quantity){
+    if (ADDTOCARTXHR !== null){
+        ADDTOCARTXHR.abort();
+        ADDTOCARTXHR = null;
     }
-    addToCartxhr = new XMLHttpRequest();
-    addToCartxhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
+    ADDTOCARTXHR = new XMLHttpRequest();
+    ADDTOCARTXHR.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200){
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
             document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
             addListeners();
         }
     };
-    addToCartxhr.open("POST", "/Cart/Items", true);
-    addToCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    addToCartxhr.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
+    ADDTOCARTXHR.open("POST", "/Cart/Items", true);
+    ADDTOCARTXHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    ADDTOCARTXHR.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
 }
 
-var deleteFromCartxhr = null;
-//remove product from cart
-function removeFromCart(id) {
-    if (deleteFromCartxhr !== null) {
-        deleteFromCartxhr.abort();
-        deleteFromCartxhr = null;
+var REMOVEFROMCARTXHR = null;
+// Remove product from cart.
+function removeFromCart(id){
+    if (REMOVEFROMCARTXHR !== null){
+        REMOVEFROMCARTXHR.abort();
+        REMOVEFROMCARTXHR = null;
     }
-    deleteFromCartxhr = new XMLHttpRequest();
-    deleteFromCartxhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
+    REMOVEFROMCARTXHR = new XMLHttpRequest();
+    REMOVEFROMCARTXHR.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200){
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
             document.getElementById("price").innerHTML = price;
-            addListeners();
-
-        }
-    };
-    deleteFromCartxhr.open("DELETE", "/Cart/Items/" + id, true);
-    deleteFromCartxhr.send();
-}
-
-var setQuantityCartxhr = null;
-//add product to cart
-function setQuantityCart(id, quantity) {
-    if (setQuantityCartxhr !== null) {
-        setQuantityCartxhr.abort();
-        setQuantityCartxhr = null;
-    }
-    setQuantityCartxhr = new XMLHttpRequest();
-    setQuantityCartxhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
-            document.getElementById("price").innerHTML = price;
-            addListeners();
-
-        }
-    };
-    setQuantityCartxhr.open("PUT", "/Cart/Items", true);
-    setQuantityCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    setQuantityCartxhr.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
-}
-
-var createCartxhr = null;
-//create cart
-function createCart(name) {
-    if (createCartxhr !== null) {
-        createCartxhr.abort();
-        createCartxhr = null;
-    }
-    createCartxhr = new XMLHttpRequest();
-    createCartxhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
-            document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
             addListeners();
         }
     };
-    createCartxhr.open("POST", "/Cart", true);
-    createCartxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    createCartxhr.send(JSON.stringify({ "Name": name }));
+    REMOVEFROMCARTXHR.open("DELETE", "/Cart/Items/" + id, true);
+    REMOVEFROMCARTXHR.send();
 }
-var deleteCartxhr = null;
-//delete cart
-function removeCart(id) {
-    if (deleteCartxhr !== null) {
-        deleteCartxhr.abort();
-        deleteCartxhr = null;
+
+var SETQUANTITYCARTXHR = null;
+// Set product quantity.
+function setQuantityCart(id, quantity){
+    if (SETQUANTITYCARTXHR !== null){
+        SETQUANTITYCARTXHR.abort();
+        SETQUANTITYCARTXHR = null;
     }
-    deleteCartxhr = new XMLHttpRequest();
-    deleteCartxhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            cart.innerHTML = this.responseText;
-            var price = document.getElementById("total").innerHTML;
+    SETQUANTITYCARTXHR = new XMLHttpRequest();
+    SETQUANTITYCARTXHR.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200){
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
             document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
             addListeners();
         }
     };
-    deleteCartxhr.open("DELETE", "/Cart/" + id, true);
-    deleteCartxhr.send();
+    SETQUANTITYCARTXHR.open("PUT", "/Cart/Items", true);
+    SETQUANTITYCARTXHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    SETQUANTITYCARTXHR.send(JSON.stringify({ "ProductId": id, "Quantity": quantity }));
 }
-//page will contain "add to cart buttons"
-//add to cart buttons
+
+var CREATECARTXHR = null;
+// Create cart.
+function createCart(name){
+    if (CREATECARTXHR !== null){
+        CREATECARTXHR.abort();
+        CREATECARTXHR = null;
+    }
+    CREATECARTXHR = new XMLHttpRequest();
+    CREATECARTXHR.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200){
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
+            addListeners();
+        }
+    };
+    CREATECARTXHR.open("POST", "/Cart", true);
+    CREATECARTXHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    CREATECARTXHR.send(JSON.stringify({ "Name": name }));
+}
+var DELETECARTXHR = null;
+// Delete cart.
+function removeCart(id){
+    if (DELETECARTXHR !== null){
+        DELETECARTXHR.abort();
+        DELETECARTXHR = null;
+    }
+    DELETECARTXHR = new XMLHttpRequest();
+    DELETECARTXHR.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200){
+            // Update the cart views html.
+            CART.innerHTML = this.responseText;
+            // Get the cart price and update the cart total badge to match it.
+            let price = document.getElementById("total").innerHTML;
+            document.getElementById("price").innerHTML = price;
+            // Add listeners to the new cart view.
+            addListeners();
+        }
+    };
+    DELETECARTXHR.open("DELETE", "/Cart/" + id, true);
+    DELETECARTXHR.send();
+}
+// Page may contain "add to cart" buttons.
+// Add event listeners to cart buttons.
 document.querySelectorAll('[data-add-to-cart-id]')
-    .forEach(button => {
+    .forEach(button =>{
         button.addEventListener('click', () => {
+            // Get the product id for the button.
             var id = button.getAttribute('data-add-to-cart-id');
             addToCart(id, 1);
         })
     })
+updateCart();

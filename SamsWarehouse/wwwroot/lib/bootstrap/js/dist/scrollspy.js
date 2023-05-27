@@ -269,6 +269,5 @@
   index_js.defineJQueryPlugin(ScrollSpy);
 
   return ScrollSpy;
-
 }));
 //# sourceMappingURL=scrollspy.js.map

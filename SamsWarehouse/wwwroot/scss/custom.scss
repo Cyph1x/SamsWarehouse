@@ -17,10 +17,10 @@ $tertiary-rgb: 20, 92, 158;
 
 .card {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
 }
-[data-bs-theme=dark] {
 
+[data-bs-theme=dark] {
     color-scheme: dark;
     --bs-primary-rgb: 11, 79, 108;
     --bs-secondary-rgb: 184, 205, 248;

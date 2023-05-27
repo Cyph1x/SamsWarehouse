@@ -108,6 +108,5 @@
   }
 
   return FocusTrap;
-
 }));
 //# sourceMappingURL=focustrap.js.map

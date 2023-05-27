@@ -36,6 +36,5 @@
   exports.enableDismissTrigger = enableDismissTrigger;
 
   Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-
 }));
 //# sourceMappingURL=component-functions.js.map

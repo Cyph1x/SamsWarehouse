@@ -112,6 +112,5 @@
   exports.sanitizeHtml = sanitizeHtml;
 
   Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-
 }));
 //# sourceMappingURL=sanitizer.js.map

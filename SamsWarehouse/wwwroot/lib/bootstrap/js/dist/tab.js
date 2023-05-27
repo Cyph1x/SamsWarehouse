@@ -271,6 +271,5 @@
   index_js.defineJQueryPlugin(Tab);
 
   return Tab;
-
 }));
 //# sourceMappingURL=tab.js.map

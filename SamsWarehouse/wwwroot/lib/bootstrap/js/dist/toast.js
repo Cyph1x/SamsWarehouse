@@ -193,6 +193,5 @@
   index_js.defineJQueryPlugin(Toast);
 
   return Toast;
-
 }));
 //# sourceMappingURL=toast.js.map

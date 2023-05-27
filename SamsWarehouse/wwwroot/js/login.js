@@ -1,54 +1,52 @@
-var xhr = null;
+var XHR = null;
 
+const LOGINBTN = document.getElementById('loginBtn');
 
-const passwordField = document.getElementById('Password');
-const emailField = document.getElementById('Email');
-const loginBtn = document.getElementById('loginBtn');
 document.querySelectorAll('[data-val]')
-    .forEach(field => {
-        field.addEventListener('keyup', () => {
-            var fields = $(document.getElementById("fields"));
-            
-            if (!fields.valid()) {
-                //disable the login button
-                loginBtn.disabled = "disabled";
-            } else {
-                loginBtn.removeAttribute("disabled");
+    .forEach(field =>{
+        field.addEventListener('keyup', () =>{
+            let fields = $(document.getElementById("fields"));
+
+            if (!fields.valid()){
+                // Disable the login button.
+                LOGINBTN.disabled = "disabled";
+            } else{
+                LOGINBTN.removeAttribute("disabled");
             }
         })
     })
 
-async function login() {
-    var email = document.getElementById("Email").value;
-    var password = document.getElementById("Password").value;
-    var validationToken = document.getElementsByName("__RequestVerificationToken")[0].value;
-    var form = new FormData();
+async function login(){
+    let email = document.getElementById("Email").value;
+    let password = document.getElementById("Password").value;
+    let validationToken = document.getElementsByName("__RequestVerificationToken")[0].value;
+    let form = new FormData();
     form.append("Email", email);
     form.append("Password", password);
-    form.append("__RequestVerificationToken",validationToken)
+    form.append("__RequestVerificationToken", validationToken);
 
-    try {
-        const response = await fetch("/Auth/login", {
+    try{
+        await fetch("/Auth/Login",{
             method: "POST",
             body: form,
+        }).then(async function (response){
+            if (response.ok){
+                window.location.href = "/";
+            } else{
+                let err = await response.text();
+                alert(err);
+            }
         });
-
-        if (response.ok) {
-            window.location.href = "/";
-        } else {
-            alert("Invalid Login")
-        }
-    } catch (error) {
+    } catch (error){
     }
 }
-$('#fields').submit(function (event) {
+$('#fields').submit(function (event){
     event.preventDefault();
     login();
 });
-var settings = {
+var settings ={
     validClass: "is-valid",
     errorClass: "is-invalid"
-
 };
 $.validator.setDefaults(settings);
 $.validator.unobtrusive.options = settings;

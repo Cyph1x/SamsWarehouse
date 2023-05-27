@@ -243,6 +243,5 @@
   index_js.defineJQueryPlugin(Collapse);
 
   return Collapse;
-
 }));
 //# sourceMappingURL=collapse.js.map

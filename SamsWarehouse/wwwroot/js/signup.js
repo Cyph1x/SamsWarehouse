@@ -1,26 +1,54 @@
-var xhr = null;
+var XHR = null;
 
+const SIGNUPBTN = document.getElementById('signupBtn');
 
-const passwordField = document.getElementById('Password');
-const emailField = document.getElementById('Email');
-const signupBtn = document.getElementById('signupBtn');
 document.querySelectorAll('[data-val]')
     .forEach(field => {
         field.addEventListener('keyup', () => {
-            var fields = $(document.getElementById("fields"));
+            let fields = $(document.getElementById("fields"));
 
             if (!fields.valid()) {
-                //disable the login button
-                signupBtn.disabled = "disabled";
+                // Disable the login button.
+                SIGNUPBTN.disabled = "disabled";
             } else {
-                signupBtn.removeAttribute("disabled");
+                SIGNUPBTN.removeAttribute("disabled");
             }
         })
-    })
-var settings = {
+    });
+
+async function signup(){
+    let email = document.getElementById("Email").value;
+    let password = document.getElementById("Password").value;
+    let validationToken = document.getElementsByName("__RequestVerificationToken")[0].value;
+    let form = new FormData();
+    form.append("Email", email);
+    form.append("Password", password);
+    form.append("__RequestVerificationToken", validationToken);
+
+    try{
+        await fetch("/Auth/Signup",{
+            method: "POST",
+            body: form,
+        }).then(async function (response){
+            if (response.ok){
+                window.location.href = "/";
+            } else{
+                let err = await response.text();
+                alert(err);
+            }
+        });
+
+        
+    } catch (error){
+    }
+}
+$('#fields').submit(function (event){
+    event.preventDefault();
+    signup();
+});
+var settings ={
     validClass: "is-valid",
     errorClass: "is-invalid"
-
 };
 $.validator.setDefaults(settings);
 $.validator.unobtrusive.options = settings;

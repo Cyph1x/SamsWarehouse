@@ -62,6 +62,5 @@
   }
 
   return Config;
-
 }));
 //# sourceMappingURL=config.js.map

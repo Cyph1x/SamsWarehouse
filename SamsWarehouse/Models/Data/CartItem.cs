@@ -7,8 +7,10 @@ namespace SamsWarehouse.Models
         [Editable(false)]
         [Range(0, int.MaxValue)]
         public int Id { get; set; }
+
         [Range(0, int.MaxValue)]
         public int CartId { get; set; }
+
         [Range(0, int.MaxValue)]
         public int ProductId { get; set; }
 
