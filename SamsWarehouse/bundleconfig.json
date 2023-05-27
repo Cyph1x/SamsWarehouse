@@ -1,0 +1,38 @@
+[
+  {
+    "outputFileName": "wwwroot/js/cart.min.js",
+    "inputFiles": [
+      "wwwroot/js/cart.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/login.min.js",
+    "inputFiles": [
+      "wwwroot/js/login.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/aboutUs.min.css",
+    "inputFiles": [
+      "wwwroot/css/aboutUs.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/signup.min.js",
+    "inputFiles": [
+      "wwwroot/js/signup.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
+  }
+]

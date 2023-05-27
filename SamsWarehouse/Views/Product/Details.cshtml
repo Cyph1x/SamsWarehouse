@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = Model.Title;
+    ViewData["Description"] = "product: " + Model.Title + ", Price: " + Model.Price.ToString("c2");
 }
 
 @*<h1>@Model.Title</h1>*@
@@ -14,23 +15,22 @@
            
             <div class="carousel-inner border m-1 bg-primary rounded-5 shadow">
                 <div class="carousel-item active">
-                    <img src="@Url.Content("~/images/" + Model.Id +"_1-1024w.webp")" class="d-block w-100">
+                    
+                    <img class="d-block w-100 h-100" src="@Url.Content("~/images/" + Model.Id +"_1-1024w.webp")" srcset="@Url.Content("~/images/" + Model.Id +"_1-128w.webp") 0.5x, @Url.Content("~/images/" + Model.Id +"_1-256w.webp") 1x,@Url.Content("~/images/" + Model.Id +"_1-512w.webp") 2x,@Url.Content("~/images/" + Model.Id +"_1-1024w.webp") 4x" width="256" height="256" loading="lazy" alt="Product Image">
                 </div>
                 @for (int i = 2; i <= Model.images; i++)
                 {
                     <div class="carousel-item">
-                        <img src="@Url.Content("~/images/" + Model.Id +"_"+ i +"-1024w.webp")" class="d-block w-100">
+                        <img class="d-block w-100 h-100" src="@Url.Content("~/images/" + Model.Id +"_"+i+"-1024w.webp")" srcset="@Url.Content("~/images/" + Model.Id +"_"+i+"-128w.webp") 0.5x, @Url.Content("~/images/" + Model.Id +"_"+i+"-256w.webp") 1x,@Url.Content("~/images/" + Model.Id +"_"+i+"-512w.webp") 2x,@Url.Content("~/images/" + Model.Id +"_"+i+"-1024w.webp") 4x" width="256" height="256" loading="lazy" alt="Product Image">
                     </div>
                 }   
             </div >
-            <div class="row-cols-5 bg-body-secondary rounded">
+            <div class="row-cols-auto bg-body-secondary rounded w-100 p-2">
 
-                <img type="button" data-bs-target="#productImages" data-bs-slide-to="0" src="@Url.Content("~/images/" + Model.Id +"_1-1024w.webp")" class="border m-1">
-                @*<button type="button" data-bs-target="#productImages" data-bs-slide-to="0" class="active" aria-current="true"></button>*@
+                <img type="button" data-bs-target="#productImages" data-bs-slide-to="0" class="border" src="@Url.Content("~/images/" + Model.Id +"_1-1024w.webp")" srcset="@Url.Content("~/images/" + Model.Id +"_1-128w.webp") 1x, @Url.Content("~/images/" + Model.Id +"_1-256w.webp") 2x,@Url.Content("~/images/" + Model.Id +"_1-512w.webp") 4x,@Url.Content("~/images/" + Model.Id +"_1-1024w.webp") 8x" width="128" height="128" loading="lazy" alt="Product Image">
                 @for (int i = 1; i < Model.images; i++)
                 {
-                    <img type="button" data-bs-target="#productImages" data-bs-slide-to="@i" src="@Url.Content("~/images/" + Model.Id +"_"+ (i+1) +"-1024w.webp")" class="border m-1" w-100 h-100>
-                    @*<button type="button" data-bs-target="#productImages" data-bs-slide-to="@i"></button>*@
+                    <img type="button" data-bs-target="#productImages" data-bs-slide-to="@i" class="border" src="@Url.Content("~/images/" + Model.Id +"_"+ (i+1) +"-1024w.webp")" srcset="@Url.Content("~/images/" + Model.Id +"_"+ (i+1) +"-128w.webp") 1x, @Url.Content("~/images/" + Model.Id +"_"+ (i+1) +"-256w.webp") 2x,@Url.Content("~/images/" + Model.Id +"_"+ (i+1) +"-512w.webp") 4x,@Url.Content("~/images/" + Model.Id +"_"+ (i+1) +"-1024w.webp") 8x" width="128" height="128" loading="lazy" alt="Product Image">
                 }
             </div>
 
@@ -39,12 +39,12 @@
         </div>
         <div class="col-6 bg-body-tertiary rounded-3 p-4">
             <div>
-            <h2>@Model.Title</h2>
-            <h4>@Model.Size</h4>
+                <label class="h2">@Model.Title</label>
+                <label class="h4">@Model.Size</label>
             </div>
             <div >
                 <h2><b>@Model.Price.ToString("c2")</b></h2>
-                <a class="btn btn-primary m-2 mt-auto" data-add-to-cart-id="@Model.Id">Add To Cart</a>
+                <button class="btn btn-primary m-2 mt-auto" data-add-to-cart-id="@Model.Id">Add To Cart</button>
             </div>
             
             

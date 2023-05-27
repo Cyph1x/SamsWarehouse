@@ -1,20 +1,21 @@
 ﻿<!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" name="description" content="@ViewData["Description"]"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SamsWarehouse</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link href="~/scss/custom.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SamsWarehouse.styles.css" asp-append-version="true" />
+    
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-primary border-bottom box-shadow mb-0 navbar-static-top">
             <div class="container-fluid">
                 <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">
-                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 422 437" height="50" width="50"><path d="m400.5 201.5-274.5 45c-25.5 22.5 1.504 42 1.504 42L396 290v37.5l-295.5-3c-12-7.5-20.992-31.5-24-52.5-3-21 19.5-43.5 19.5-43.5L49.508 53H24l-6-33h64.504L99 74l307.5-1.5-6 129zM153 341c22.367 0 40.5 18.129 40.5 40.5 0 22.367-18.133 40.5-40.5 40.5-22.371 0-40.496-18.133-40.496-40.5 0-22.371 18.125-40.5 40.496-40.5zm198 0c22.375 0 40.5 18.129 40.5 40.5 0 22.367-18.125 40.5-40.5 40.5-22.363 0-40.5-18.133-40.5-40.5 0-22.371 18.137-40.5 40.5-40.5z" clip-rule="evenodd" fill-rule="evenodd" class="logo"/><text y="178.575" x="140.101" class="logo svgtext" xml:space="preserve"><tspan y="178.575" x="140.101">S W</tspan></text></svg>Sam's Warehouse
+                    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 422 437" height="50" width="50"><path d="m400.5 201.5-274.5 45c-25.5 22.5 1.504 42 1.504 42L396 290v37.5l-295.5-3c-12-7.5-20.992-31.5-24-52.5-3-21 19.5-43.5 19.5-43.5L49.508 53H24l-6-33h64.504L99 74l307.5-1.5-6 129zM153 341c22.367 0 40.5 18.129 40.5 40.5 0 22.367-18.133 40.5-40.5 40.5-22.371 0-40.496-18.133-40.496-40.5 0-22.371 18.125-40.5 40.496-40.5zm198 0c22.375 0 40.5 18.129 40.5 40.5 0 22.367-18.125 40.5-40.5 40.5-22.363 0-40.5-18.133-40.5-40.5 0-22.371 18.137-40.5 40.5-40.5z" clip-rule="evenodd" fill-rule="evenodd" class="logo" /><text y="178.575" x="140.101" class="logo svgtext" xml:space="preserve"><tspan y="178.575" x="140.101">S W</tspan></text></svg><label class="d-inline navbar-text">Sam's Warehouse</label>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -31,31 +32,31 @@
                     </ul>
                     <div class="flex-grow-1 dropdown-center ">
 
-                        <input id="searchBar"  class=" rounded-5 p-2 mx-1 dropdown-toggle shadow w-100" placeholder="Search our products" data-bs-toggle="dropdown" aria-expanded="false"></input>
+                        <input id="searchBar"  class=" rounded-5 p-2 mx-1 dropdown-toggle shadow w-100" placeholder="Search our products" data-bs-toggle="dropdown" >
                         <ul class="dropdown-menu shadow overflow-auto w-100 vh25" id="searchResults">
                         </ul>
                     </div>
 
-                    <button class="btn mx-1" id="themeToggleBtn"></button>     
-                    
+                    <button class="btn mx-1" id="themeToggleBtn">☀</button>
+
                     @if (Context.Session.GetInt32("ID") != null)
                     {
                         //logged in
 
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            <img src="~/Logo.svg" height="25" width="25">Cart
+                            <img src="~/Logo.svg" height="25" width="25" alt="..." loading="lazy">Cart
                             <span class="badge bg-danger" id="price"></span>
 
                             </button>
                         
                     <a class="btn btn-outline-secondary mx-1" asp-area="" asp-controller="Auth" asp-action="logout">
-                            <img src="~/images/user.svg" height="25" width="25">Logout
+                            <img src="~/images/user.svg" height="25" width="25" alt="..." loading="lazy">Logout
                         </a>
                     }
                     else
                     {
                     <a class="btn btn-outline-secondary mt-auto mx-1" asp-area="" asp-controller="Auth" asp-action="login">
-                        <img src="~/images/user.svg" height="25" width="25">Login
+                            <img src="~/images/user.svg" height="25" width="25" alt="..." loading="lazy">Login
                     </a>
                     }
 
@@ -78,16 +79,17 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - SamsWarehouse - <a asp-area="" asp-controller="Product" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - SamsWarehouse - <a class="text-body-emphasis"asp-area="" asp-controller="Product" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-     @if (Context.Session.GetInt32("ID") != null)
+    @if (Context.Session.GetInt32("ID") != null)
     {
-    <script src="~/js/cart.js"></script>    
+        <script async src="~/js/cart.js" asp-append-version="true"></script>
     }
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <script async src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script async src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script async src="~/js/site.js" asp-append-version="true"></script>
+    
 </body>
 </html>

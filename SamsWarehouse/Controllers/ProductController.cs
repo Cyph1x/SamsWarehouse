@@ -16,13 +16,14 @@ namespace SamsWarehouse.Controllers
 		}
         #region Endpoints
         #region Products page
-		/// <summary>
-		/// Products list view
-		/// </summary>
-		/// <returns>The products list view.</returns>
-		// GET: Product
+        /// <summary>
+        /// Products list view
+        /// </summary>
+        /// <returns>The products list view.</returns>
+        // GET: Product
         public async Task<IActionResult> IndexAsync()
 		{
+			
 			return View(await _dbContext.Products.ToListAsync());
 		}
 		#endregion

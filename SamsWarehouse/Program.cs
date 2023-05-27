@@ -10,7 +10,6 @@ builder.Services.AddResponseCompression(options =>
 });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 // Add the database context.
 builder.Services.AddDbContext<SQLDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SamsWarehouse")));
@@ -27,7 +26,22 @@ builder.Services.AddHsts(options =>
 
 var app = builder.Build();
 app.UseResponseCompression();
+
 // Configure the HTTP request pipeline.
+#if RELEASE
+app.UseExceptionHandler("/Product/Error");
+app.UseHsts();
+// Use caching on static files.
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        // Cache static content (images) for one year.
+        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=31536000";
+        
+    }
+});
+#endif
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Product/Error");
@@ -46,6 +60,7 @@ else
 {
     app.UseStaticFiles();
 }
+
 // Redirect HTTP to HTTPS.
 app.UseHttpsRedirection();
 // Add session support.
@@ -60,6 +75,8 @@ app.Use(async (context, next) =>
     context.Response.Headers.Add("X-Frame-Options", "DENY");
     await next(context);
 });
+
+
 
 app.UseAuthorization();
 

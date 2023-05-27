@@ -20,8 +20,10 @@ function setTheme(theme){
             document.documentElement.setAttribute('data-bs-theme', 'dark');
         } else{
             document.documentElement.setAttribute('data-bs-theme', theme);
+        }
+    if (THEMETOGGLEBTN) {
+        THEMETOGGLEBTN.innerHTML = theme === 'dark' ? '☀️' : '🌕';
     }
-    THEMETOGGLEBTN.innerHTML = theme === 'dark' ? '☀️' : '🌕';
 };
 
 setTheme(getPreferredTheme());
@@ -32,8 +34,9 @@ function toggleTheme(){
     showActiveTheme(newTheme, true);
 };
 // Add event listener to the toggle button.
-
-THEMETOGGLEBTN.addEventListener('click', toggleTheme);
+if (THEMETOGGLEBTN) {
+    THEMETOGGLEBTN.addEventListener('click', toggleTheme);
+}
 function showActiveTheme(theme, focus = false){
     let themeSwitcher = document.querySelector('#bd-theme');
 
@@ -106,5 +109,6 @@ function startSearch(){
         XHR.send();
     }
 };
-
-SEARCHBAR.addEventListener('keyup', startSearch);
+if (SEARCHBAR) {
+    SEARCHBAR.addEventListener('keyup', startSearch);
+}

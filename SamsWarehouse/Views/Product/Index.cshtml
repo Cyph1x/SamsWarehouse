@@ -1,6 +1,8 @@
 ﻿@model List<SamsWarehouse.Models.Product>
 @{
     ViewData["Title"] = "Product Page";
+    ViewData["Description"] = "Sam's Warehouse, Stocking all your food needs.";
+    bool loggedIn = Context.Session.GetInt32("ID") != null;
 }
 
 
@@ -18,23 +20,24 @@
                 <div class="card h-100 shadow">
                     <!-- Product image -->
                     <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" >
-                        <img class="card-img-top bg-primary p-2 w-100 h-100" src="@Url.Content("~/images/" + product.Id +"_1-512w.webp")" srcset="@Url.Content("~/images/" + product.Id +"_1-128w.webp") 0.5x, @Url.Content("~/images/" + product.Id +"_1-256w.webp") 1x,@Url.Content("~/images/" + product.Id +"_1-512w.webp") 2x,@Url.Content("~/images/" + product.Id +"_1-1024w.webp") 4x" width="256" height="256" loading="lazy">
+                        <img class="card-img-top bg-primary p-2 w-100 h-100" src="@Url.Content("~/images/" + product.Id +"_1-512w.webp")" srcset="@Url.Content("~/images/" + product.Id +"_1-128w.webp") 0.5x, @Url.Content("~/images/" + product.Id +"_1-256w.webp") 1x,@Url.Content("~/images/" + product.Id +"_1-512w.webp") 2x,@Url.Content("~/images/" + product.Id +"_1-1024w.webp") 4x" width="256" height="256" loading="lazy" alt="Product Image">
                     </a>
                     <div class="card-body p-2 pt-2 bg-body-secondary">
-                        <div class="text-center">
+                        <div class="text-center h-100 d-flex flex-md-column justify-content-between">
                             <!-- Product title -->
                             <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="text-decoration-none form-text">
-                                <h5 class="fw-bolder">@product.Title</h5>
+                                <b class="fw-bolder h-100 h5">@product.Title</b>
                             </a>
                             <!-- Product price -->
-                            @product.Price.ToString("c2")
+
+                            <small>@product.Price.ToString("c2")</small>
                         </div>
                     </div>
-                    @if (Context.Session.GetInt32("ID") != null)
+                    @if (loggedIn)
                     {
                         <div class="card-footer p-2 pt-2 border-top-0">
                             <div class="text-center">
-                                <a class="btn btn-primary mt-auto" data-add-to-cart-id="@product.Id">Add To Cart</a>
+                                <button class="btn btn-primary mt-auto" data-add-to-cart-id="@product.Id">Add To Cart</button>
                             </div>
                         </div>
                     }
