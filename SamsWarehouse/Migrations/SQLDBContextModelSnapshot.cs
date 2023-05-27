@@ -61,8 +61,8 @@ namespace SamsWarehouse.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -217,7 +217,7 @@ namespace SamsWarehouse.Migrations
                         new
                         {
                             Id = 17,
-                            Details = "Woolworth's Select Carrot are selected fresh from Australian farms, the ever versatile carrots is perfect for cooking or eating raw as a fresh snack. Edible portion includes flesh only. ",
+                            Details = "Sams Warehouse's Select Carrot are selected fresh from Australian farms, the ever versatile carrots is perfect for cooking or eating raw as a fresh snack. Edible portion includes flesh only. ",
                             Price = 2.0,
                             Size = "1kg",
                             Title = "Carrots",

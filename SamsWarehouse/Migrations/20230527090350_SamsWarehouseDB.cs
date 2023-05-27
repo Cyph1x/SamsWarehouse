@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace SamsWarehouse.Migrations
 {
@@ -49,7 +52,7 @@ namespace SamsWarehouse.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Added = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -112,7 +115,7 @@ namespace SamsWarehouse.Migrations
                     { 14, "Red Washed Potatoes\n\nIn Season: All Year\n\nRed Washed Potatoes have pink, smooth skin with creamy white flesh, they are high in moisture and low in starch which makes them hold their shape well when cooked, making them ideal for roasting.", null, 4.0, "1kg", "Red potato washed", 1 },
                     { 15, "The ultimate tangy apple! Firm, crunchy, and tart making the Granny Smith a great snack, and ideal for baking and cooking.\n\nHow to Pick:\nApples should be bright and crunchy, with a tight skin and juicy flesh. Our apples have a natural shine and no added wax.\n\n\nStoring your apples in the fridge will keep them crisp and fresh for longer.\nConsume apples within 2 weeks for the best eating experience.\n\n\nOur hand picked apples are 100% Australian grown. Our expert growers pick them from trees in the colder climate regions of Australia to ensure they have the best flavour, colour and firmness.", null, 5.5, "1kg", "Granny Smith Apples", 1 },
                     { 16, "Round in shape, with a bright red shiny skin and red pulp and whitish seeds. The tomato is actually a fruit but is considered a vegetable because of its uses. ", null, 5.9000000000000004, "500g", "Fresh tomatoes", 1 },
-                    { 17, "Woolworth's Select Carrot are selected fresh from Australian farms, the ever versatile carrots is perfect for cooking or eating raw as a fresh snack. Edible portion includes flesh only. ", null, 2.0, "1kg", "Carrots", 1 },
+                    { 17, "Sams Warehouse's Select Carrot are selected fresh from Australian farms, the ever versatile carrots is perfect for cooking or eating raw as a fresh snack. Edible portion includes flesh only. ", null, 2.0, "1kg", "Carrots", 1 },
                     { 18, "Large oval fruit with a thick green skin and a sweet watery pink to red flesh with usually many seeds.\nOften the deeper colored the flesh, the sweeter the taste. Watermelon's flesh contains about 6% sugar and it is comprised primarily of water. \n\n\nAll year.\n\n\nWatermelon is best utilized in fresh, uncooked applications. Its flesh can be cubed, balled, sliced into wedges or pureed. The large shell can be carved into a decorative basket and used as a natural vessel for serving beverages or salads. Pureed it can be used to flavor drinks or to make granitas, sorbets and chilled soups. Its sweet flavor pairs well with cucumber, arugula, basil, mint, citrus juice, peanuts, coconut, pecans and robust cheeses such as feta, romano and parmesan. Though not commonly consumed as a result of its bitter flavor the rind of the Watermelon is edible and can be grilled, stewed, stir-fired or pickled. The seeds as well are edible and can be roasted or dried and seasoned. Unlike most other melons, refrigerate Watermelon for best flavor. ", null, 6.5999999999999996, "Whole", "Watermelon", 1 },
                     { 19, "Red onions have burgundy red skins and red tinged flesh. Spanish type red onions are large and round, while Californian red onions tend to be flatter and milder. They are mild, sweet and juicy and are delicious eaten raw in salads, used as a garnish or added to sandwiches.", null, 3.5, "1kg", "Red onion", 1 },
                     { 20, "Mornings taste better with Nutella!", "Ingredients\nINGREDIENTS: SUGAR, VEGETABLE OIL (PALM*), HAZELNUTS (13%), SKIM MILK POWDER (8.7%), FAT-REDUCED COCOA POWDER (7.4%), EMULSIFIER (LECITHINS) (SOY), FLAVOURING (VANILLIN). TOTAL MILK SOLIDS: 8.7%. TOTAL COCOA SOLIDS: 7.4%. *Sustainable and segregated certified palm oil.", 4.0, "400g", "Nutella jar", 7 },
