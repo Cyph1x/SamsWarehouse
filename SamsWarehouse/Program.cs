@@ -52,14 +52,14 @@ app.UseHttpsRedirection();
 app.UseSession();
 app.UseRouting();
 // Custom Middleware (inline) for security.
-app.Use(async (context, next) =>
-{
-    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' http://www.w3.org/2000/svg; img-src data: 'self' http://www.w3.org/2000/svg");
-    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
-    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-    context.Response.Headers.Add("X-Frame-Options", "DENY");
-    await next(context);
-});
+//app.Use(async (context, next) =>
+//{
+//    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' http://www.w3.org/2000/svg; img-src data: 'self' http://www.w3.org/2000/svg");
+//    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+//    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+//    context.Response.Headers.Add("X-Frame-Options", "DENY");
+//    await next(context);
+//});
 
 app.UseAuthorization();
 
