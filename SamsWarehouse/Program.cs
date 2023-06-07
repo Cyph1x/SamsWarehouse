@@ -3,6 +3,9 @@ using Microsoft.Net.Http.Headers;
 using SamsWarehouse.Models.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+//set the environment to development
+builder.Environment.EnvironmentName = Environments.Development;
+
 // Enable response compression.
 builder.Services.AddResponseCompression(options =>
 {
@@ -14,7 +17,7 @@ builder.Services.AddControllersWithViews();
 #if DEBUG
 builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SamsWarehouse")));
 #else
-builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb")));
+builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("     ")));
 #endif
 // Add session support.
 builder.Services.AddSession();
