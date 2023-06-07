@@ -11,8 +11,11 @@ builder.Services.AddResponseCompression(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // Add the database context.
-builder.Services.AddDbContext<SQLDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SamsWarehouse")));
+#if DEBUG
+builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SamsWarehouse")));
+#else
+builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb")));
+#endif
 // Add session support.
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
