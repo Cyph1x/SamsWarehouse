@@ -23,8 +23,8 @@ namespace SamsWarehouse.Controllers
         // GET: Product
         public async Task<IActionResult> IndexAsync()
 		{
-			
-			return View(await _dbContext.Products.ToListAsync());
+			var products = await _dbContext.Products.ToListAsync();
+			return View(products);
 		}
 		#endregion
         #region Product details page

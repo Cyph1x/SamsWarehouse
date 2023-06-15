@@ -4,14 +4,23 @@ namespace SamsWarehouse.Models.Data
 {
     public class SQLDBContext : DbContext
     {
-        public SQLDBContext(DbContextOptions options) : base(options)
-        {
-        }
-
         public DbSet<Product> Products { get; set; }
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public SQLDBContext(DbContextOptions options) : base(options)
+        {
+            Database.EnsureCreated();
+
+        }
+        protected override void OnConfiguring
+       (DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured) { 
+                optionsBuilder.UseInMemoryDatabase(databaseName: "SamsWarehouseDB");
+            }
+        }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -73,6 +82,7 @@ new Product { Id = 7, Title = "Coca Cola", Price = 2.85, Size = "2 litre", Detai
 new Product { Id = 8, Title = "Bega Farmers Tasty", Price = 4.0, Size = "250g", Ingredients = "Ingredients\nMilk, Salt, Cultures, Enzyme (Non-Animal Rennet).", images = 5 },
 new Product { Id = 9, Title = "Philadelphia Original Cream Cheese", Price = 4.3, Size = "250g", Details = "The Original Philadelphia Cream Cheese is made fresh and creamy, perfect as a spread or as an ingredient in some of your favourite desserts.", Ingredients = "Ingredients\nMilk, Cream (from Milk), Milk Solids, Salt, Vegetable Gum (Locust Bean), Starter Culture.", images = 3 }
                 );
+
         }
     }
 }

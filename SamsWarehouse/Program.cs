@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using SamsWarehouse.Models;
 using SamsWarehouse.Models.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 //set the environment to development
@@ -14,11 +16,16 @@ builder.Services.AddResponseCompression(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // Add the database context.
-#if DEBUG
-builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SamsWarehouse")));
-#else
-builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("     ")));
-#endif
+if (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
+{
+    builder.Services.AddDbContext<SQLDBContext>();
+}
+else
+{
+    builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SamsWarehouse")));
+}
+
+
 // Add session support.
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
@@ -34,20 +41,7 @@ var app = builder.Build();
 app.UseResponseCompression();
 
 // Configure the HTTP request pipeline.
-#if RELEASE
-app.UseExceptionHandler("/Product/Error");
-app.UseHsts();
-// Use caching on static files.
-app.UseStaticFiles(new StaticFileOptions
-{
-    OnPrepareResponse = ctx =>
-    {
-        // Cache static content (images) for one year.
-        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=31536000";
-        
-    }
-});
-#endif
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Product/Error");
